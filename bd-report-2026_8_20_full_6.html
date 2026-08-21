@@ -1,0 +1,1406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Incandescent — 2026 Business Development</title>
+<style>
+:root{
+  /* Chrome — Incandescent brand */
+  --ink:#4d4d4d;--paper:#ffffff;--card:#ffffff;--line:#e4e6e8;--line2:#eef0f2;
+  --text:#454545;--muted:#5f5f5f;--faint:#9a9a9a;
+  --brand-orange:#F56419;--brand-blue:#00567C;--brand-blue2:#6199AE;--brand-blue-lt:#B3D8E1;
+  /* Data encoding — unchanged (color coding & bars) */
+  --over:#2f6f5e;--under:#b0632c;--plan:#14181f;
+  --corp:#3f5a76;--sc:#2f6f5e;--new:#c0562f;
+  --green:#3e8e5a;--yellow:#c39114;--red:#c0492f;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--text);font-family:Arial,Helvetica,"Liberation Sans",sans-serif;font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased}
+.mono{font-family:Arial,Helvetica,"Liberation Sans",sans-serif;font-variant-numeric:tabular-nums}
+h1,h2,h3,h4{font-family:Georgia,"Times New Roman",serif;font-weight:600;letter-spacing:-.005em;margin:0}
+.wrap{max-width:1200px;margin:0 auto;padding:0 26px}
+
+.mast{background:var(--brand-orange);color:#fff;padding:30px 0 24px}
+.mast .wrap{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px}
+.brand{font-family:Georgia,serif;font-weight:700;font-size:12px;letter-spacing:.32em;color:rgba(255,255,255,.92);text-transform:lowercase}
+.mast h1{font-size:clamp(26px,4.2vw,38px);color:#fff;line-height:1.03;margin-top:9px}
+.mast h1 em{font-style:italic;color:rgba(255,255,255,.82);font-weight:400}
+.period{font-size:12px;color:rgba(255,255,255,.9);text-align:right;line-height:1.7;max-width:290px}
+.period b{color:#fff;font-weight:700}
+
+/* Tabs */
+.tabs{background:var(--brand-blue);border-top:1px solid rgba(255,255,255,.16);position:sticky;top:0;z-index:60}
+.tabs .wrap{display:flex;gap:2px;overflow-x:auto;align-items:center}
+.tabs-right{margin-left:auto;display:flex;align-items:center;gap:10px;padding-right:2px}
+.ver-pill{font-size:10.5px;letter-spacing:.06em;color:rgba(255,255,255,.72);white-space:nowrap;max-width:230px;overflow:hidden;text-overflow:ellipsis}
+.save-btn{padding:7px 15px;font-family:Arial,Helvetica,sans-serif;font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;font-weight:700;color:#fff;background:var(--brand-orange);border:0;border-radius:3px;cursor:pointer;white-space:nowrap}
+.save-btn:hover{filter:brightness(1.08)}
+.rm-version{font-size:11px;color:var(--brand-orange);font-weight:700;letter-spacing:.06em;margin-top:6px}
+.tabs button{padding:14px 18px;font-family:Arial,Helvetica,sans-serif;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:rgba(255,255,255,.72);background:none;border:0;border-bottom:3px solid transparent;white-space:nowrap;cursor:pointer;transition:color .15s,border-color .15s}
+.tabs button:hover{color:#fff}
+.tabs button.active{color:#fff;border-bottom-color:var(--brand-orange)}
+.tab-panel{display:none}
+.tab-panel.active{display:block}
+
+section.band{padding:38px 0}
+.band-alt{background:var(--card);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.shead{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:18px}
+.shead h2{font-size:22px;color:var(--brand-orange)}
+.shead .meta{font-family:"Arial";font-size:11.5px;color:var(--muted)}
+.lead-in{color:var(--muted);font-size:13px;max-width:740px;margin:-6px 0 20px;line-height:1.6}
+
+.score{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);background:#f6f7f9}
+.tile{padding:19px 20px;border-right:1px solid var(--line)}
+.tile:last-child{border-right:0}
+.tile .lab{font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.tile .fig{font-family:"Arial";font-variant-numeric:tabular-nums;font-size:26px;font-weight:500;margin-top:8px;letter-spacing:-.02em;line-height:1}
+.tile .sub{font-size:11px;color:var(--faint);margin-top:7px;font-family:"Arial"}
+.tile .sub .pct{color:var(--over);font-weight:600}.tile .sub .neg{color:var(--under);font-weight:600}
+
+/* Attainment */
+.att-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 44px}
+.seg-head{grid-column:1/-1;display:flex;justify-content:space-between;align-items:baseline;border-bottom:2px solid var(--ink);padding:14px 0 7px}
+.seg-head:first-child{margin-top:0}
+.seg-head .sn{font-family:Georgia;font-size:15px;font-weight:600}
+.seg-head .sv{font-family:"Arial";font-size:12px;color:var(--muted)}.seg-head .sv b{color:var(--text)}
+.arow{padding:11px 0 12px;border-bottom:1px solid var(--line)}
+.arow .top{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin-bottom:7px}
+.arow .nm{font-size:12px;font-weight:500}
+.arow .vv{font-family:"Arial";font-size:11px;color:var(--muted);white-space:nowrap}.arow .vv b{color:var(--text);font-weight:600}
+.track{position:relative;height:10px;background:#e7e5db}
+.track .fill{position:absolute;top:0;left:0;height:100%;background:var(--under);transition:width .6s cubic-bezier(.2,.7,.2,1)}
+.track .fill.over{background:var(--over)}
+.track .planline{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--plan);z-index:2}
+.arow .pctlab{font-family:"Arial";font-size:10px;margin-top:5px;color:var(--faint)}
+.arow .pctlab b.over{color:var(--over)}.arow .pctlab b.under{color:var(--under)}
+.att-note{grid-column:1/-1;font-size:11px;color:var(--faint);margin-top:15px;display:flex;gap:20px;flex-wrap:wrap}
+.att-note .k{display:inline-flex;align-items:center;gap:6px}
+.att-note .sw{width:16px;height:9px;display:inline-block}.att-note .planmark{width:2px;height:13px;background:var(--plan);display:inline-block}
+
+/* Chart */
+.chart-wrap{border:1px solid var(--line);background:#f6f7f9;padding:20px 20px 12px;position:relative}
+.chart-controls{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;align-items:center}
+.seg-toggle{display:inline-flex;border:1px solid var(--line);background:var(--card)}
+.seg-toggle button{font-family:"Arial";font-size:11.5px;font-weight:600;padding:6px 13px;background:none;border:0;color:var(--muted);cursor:pointer;border-right:1px solid var(--line)}
+.seg-toggle button:last-child{border-right:0}
+.seg-toggle button.on{background:var(--ink);color:#fbfcfd}
+.chart-legend{display:flex;gap:15px;margin-left:auto;font-size:11px;color:var(--muted);flex-wrap:wrap}
+.chart-legend .k{display:inline-flex;align-items:center;gap:6px}
+.chart-legend .sw{width:14px;height:10px;display:inline-block}
+.chart-legend .swl{width:16px;height:0;border-top:2px dashed var(--under);display:inline-block}
+svg{display:block;width:100%;height:auto;overflow:visible}
+.axis text{font-family:"Arial";font-size:10px;fill:var(--faint)}
+.axis line{stroke:var(--line);stroke-width:1}
+.bar-label{font-family:"Arial";font-size:9px;fill:var(--muted)}
+.chart-tip{position:absolute;pointer-events:none;background:#00405c;color:#fff;padding:10px 12px;font-size:11.5px;z-index:50;min-width:170px;max-width:260px;box-shadow:0 8px 26px rgba(20,24,31,.28);opacity:0;transition:opacity .1s;transform:translate(-50%,-100%)}
+.chart-tip.show{opacity:1}
+.chart-tip .tt{font-family:"Arial";font-size:13px;font-weight:600;border-bottom:1px solid rgba(255,255,255,.22);padding-bottom:6px;margin-bottom:6px;display:flex;justify-content:space-between;gap:12px}
+.chart-tip .tr{display:flex;justify-content:space-between;gap:14px;line-height:1.7}
+.chart-tip .tt-grp{display:flex;justify-content:space-between;gap:14px;font-weight:700;font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:#fff;padding-bottom:3px}
+.chart-tip .tt-grp.sep{border-top:1px solid rgba(255,255,255,.3);margin-top:8px;padding-top:8px}
+.chart-tip .tr span:first-child{color:rgba(255,255,255,.78);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.chart-tip .tr span:last-child{font-family:"Arial";color:#fbfcfd;white-space:nowrap}
+.chart-tip .more{color:rgba(255,255,255,.62);font-size:10.5px;margin-top:5px}
+.rgap{fill:transparent;cursor:pointer}
+.rgap:hover~*{}
+.hoverband{fill:rgba(20,24,31,.05)}
+
+.tbl{width:100%;border-collapse:collapse;font-size:12.5px;margin-top:6px}
+.tbl th{font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);font-weight:600;text-align:left;padding:9px 10px;border-bottom:1px solid var(--ink)}
+.tbl th.num{text-align:right}
+.tbl td{padding:9px 10px;border-bottom:1px solid var(--line)}
+.tbl td.num{text-align:right;font-family:"Arial";font-variant-numeric:tabular-nums}
+.tbl tr.total td{border-top:2px solid var(--ink);border-bottom:0;font-weight:600}
+.tbl tr.sub td{background:#f6f7f9;font-weight:600}
+.tbl .pos{color:var(--over)}.tbl .neg{color:var(--under)}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:start}
+.mini h4{font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);font-weight:600;font-family:"Arial";border-bottom:1px solid var(--line);padding-bottom:8px}
+.help{font-size:11px;color:var(--faint);line-height:1.6;margin-top:10px}
+
+/* Filters */
+.filters{background:var(--card);border:1px solid var(--line);padding:15px 17px}
+.filters .row{display:flex;flex-wrap:wrap;gap:13px 15px;align-items:flex-end}
+.fgroup{display:flex;flex-direction:column;gap:5px;position:relative}
+.fgroup label{font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.ms{min-width:180px}
+.ms-btn{font-family:"Arial";font-size:13px;background:#fbfcfd;border:1px solid var(--line);padding:8px 30px 8px 10px;cursor:pointer;text-align:left;width:100%;position:relative;color:var(--text)}
+.ms-btn:after{content:"▾";position:absolute;right:10px;top:50%;transform:translateY(-50%);color:var(--faint);font-size:11px}
+.ms-btn.has{border-color:var(--ink);font-weight:500}
+.ms-menu{position:absolute;top:100%;left:0;margin-top:4px;background:var(--card);border:1px solid var(--ink);z-index:55;max-height:300px;overflow:auto;display:none;box-shadow:0 8px 24px rgba(20,24,31,.12);min-width:250px}
+.ms-menu.open{display:block}
+.ms-menu label{display:flex;align-items:center;gap:9px;padding:8px 11px;font-size:12.5px;cursor:pointer;text-transform:none;letter-spacing:0;color:var(--text);font-weight:400;border-bottom:1px solid var(--line2)}
+.ms-menu label:hover{background:#eef1f4}.ms-menu label:last-child{border-bottom:0}
+.ms-menu input{width:15px;height:15px;accent-color:var(--ink);cursor:pointer}
+.ms-menu .ct{margin-left:auto;font-family:"Arial";font-size:10.5px;color:var(--faint)}
+.date-pair{display:flex;gap:6px;align-items:center}
+.date-pair input{font-family:"Arial";font-size:12.5px;background:#fbfcfd;border:1px solid var(--line);padding:7px 8px}
+.date-pair span{color:var(--faint);font-size:12px}
+.reset{margin-left:auto}
+.reset button{font-family:"Arial";font-size:12px;font-weight:600;background:none;border:1px solid var(--ink);color:var(--ink);padding:8px 16px;cursor:pointer;transition:all .15s}
+.reset button:hover:not(:disabled){background:var(--ink);color:#fbfcfd}
+.reset button:disabled{opacity:.32;cursor:default}
+.filt-help{font-size:10.5px;color:var(--faint);line-height:1.55;margin-top:11px;border-top:1px solid var(--line2);padding-top:10px}
+
+/* Deal table */
+.ledger{width:100%;border-collapse:collapse;font-size:13px}
+.ledger thead th{font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);font-weight:600;text-align:left;padding:12px 10px 9px;border-bottom:1px solid var(--line);cursor:pointer;user-select:none;white-space:nowrap;background:#f6f7f9}
+.ledger thead th.num{text-align:right}
+.ledger thead th .arr{font-size:9px;margin-left:3px;opacity:0}
+.ledger thead th.sorted .arr{opacity:1;color:var(--ink)}
+.ledger tbody tr{border-bottom:1px solid var(--line);cursor:pointer;transition:background .1s}
+.ledger tbody tr:hover{background:#eef1f4}
+.ledger tbody tr.open{background:#eaeef1}
+.ledger td{padding:11px 10px;vertical-align:top}
+.ledger td.num{text-align:right;font-family:"Arial";font-variant-numeric:tabular-nums;white-space:nowrap;font-weight:500}
+.opp{font-weight:600;line-height:1.3}.opp .cli{display:block;font-weight:400;font-size:11px;color:var(--faint);margin-top:1px}
+.bk{font-size:11.5px;color:var(--muted);line-height:1.35}
+.leads{display:flex;flex-wrap:wrap;gap:3px;margin-top:3px}
+.chip{font-size:10.5px;background:#e9ecef;color:#4a4e55;padding:1px 6px;font-family:"Arial"}
+.stage{display:inline-block;font-size:9.5px;letter-spacing:.05em;text-transform:uppercase;font-weight:600;padding:3px 7px;white-space:nowrap}
+.stage.Closed{background:#e6f0ea;color:#2c6a48}.stage.Mutual{background:#dcebe3;color:#245b3d}
+.stage.Serious{background:#eef1f5;color:#37506b}.stage.Active{background:#f2f1ea;color:#5a5e66}
+.stage.Pre{background:#f4f0e8;color:#7a6a4e}.stage.Account{background:#f3eee6;color:#7a5a2e}.stage.Lost{background:#f4e9e6;color:#a03f2c}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px;vertical-align:middle}
+.dot.green{background:var(--green)}.dot.yellow{background:var(--yellow)}.dot.red{background:var(--red)}
+.spark{display:inline-flex;align-items:flex-end;gap:1px;height:20px}
+.spark i{width:4px;background:var(--corp);opacity:.55;display:inline-block}
+.detail td{background:#f4f6f8;padding:0}
+.detail .inner{padding:4px 12px 16px;font-size:12.5px;color:#3a3e46;max-width:820px}
+.detail .dl{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);font-weight:600;margin:12px 0 3px}
+.detail p{margin:0;line-height:1.55}
+.tfoot{display:flex;justify-content:space-between;align-items:baseline;padding:14px 10px;border-top:2px solid var(--ink)}
+.tfoot .l{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.tfoot .r{font-family:"Arial";font-size:17px;font-weight:600}
+.empty{padding:44px 10px;text-align:center;color:var(--muted)}
+.empty b{display:block;font-family:Georgia;font-size:16px;color:var(--text);margin-bottom:6px}
+
+/* Movement (tab1) */
+.mv-wrap{border:1px solid var(--line);background:#f6f7f9;padding:20px 20px 12px;position:relative}
+.stub{border:1px dashed var(--muted);background:#f6f7f9;padding:22px;color:var(--muted);font-size:12.5px;line-height:1.6}
+.stub b{font-family:Georgia;font-size:15px;color:var(--text);display:block;margin-bottom:6px;font-weight:600}
+
+/* Report (tab3) */
+.report{max-width:860px}
+.report .rhead{color:var(--muted);font-size:12.5px;font-style:italic;margin-bottom:26px;line-height:1.6}
+.report h3{font-size:19px;margin:30px 0 4px;padding-bottom:7px;border-bottom:1.5px solid var(--brand-blue-lt);color:var(--brand-blue)}
+.report h4{font-size:14px;margin:20px 0 6px;color:var(--text)}
+.report p{margin:0 0 11px;color:#33373f;line-height:1.62}
+.report .rate{display:inline-block;font-size:10px;letter-spacing:.06em;text-transform:uppercase;font-weight:700;padding:2px 8px;margin-left:8px;vertical-align:middle}
+.rate.green{background:#e6f0ea;color:#2c6a48}.rate.yellow{background:#f7efd9;color:#8a6410}.rate.red{background:#f4e9e6;color:#a03f2c}
+.report .note{font-size:11.5px;color:var(--faint);font-style:italic;line-height:1.6;margin-top:8px}
+.syn-cell{display:block;padding:7px 9px;border-radius:4px;font-size:12px;line-height:1.45}
+.syn-g{background:#e3efe7;color:#245b3d}.syn-y{background:#f6eed6;color:#7a5910}.syn-r{background:#f3e6e2;color:#933524}
+.syn-cell.syn-edit{position:relative;padding:7px 9px 26px;transition:box-shadow .12s}
+.syn-cell.syn-edit:hover{box-shadow:inset 0 0 0 1px rgba(0,0,0,.16)}
+.syn-txt{outline:none;min-height:16px;cursor:text}
+.syn-txt:focus{outline:2px solid var(--brand-orange);outline-offset:3px;border-radius:2px}
+.syn-txt:empty:before{content:attr(data-ph);color:var(--faint);font-style:italic}
+.syn-rate{position:absolute;right:6px;bottom:5px;font-family:Arial,Helvetica,sans-serif;font-size:9.5px;letter-spacing:.04em;color:inherit;background:rgba(255,255,255,.82);border:1px solid rgba(0,0,0,.14);border-radius:3px;padding:1px 3px;cursor:pointer;opacity:.55;transition:opacity .12s}
+.syn-cell.syn-edit:hover .syn-rate,.syn-rate:focus{opacity:1}
+/* Funnel (tab3) */
+.funnel-card{border:1px solid var(--line);background:var(--card);border-radius:8px;padding:22px 18px 8px;margin-bottom:6px}
+.funnel-card svg .fl-count{font-family:Georgia;font-weight:600;fill:#fff}
+.funnel-card svg .fl-stage{font-family:Georgia;font-weight:600}
+.funnel-card svg .fl-flow{font-family:"Arial";font-weight:600;font-style:italic}
+.funnel-card svg .fl-lost{font-family:Georgia;font-weight:600;fill:var(--muted)}
+.funnel-legend{display:flex;gap:18px;flex-wrap:wrap;font-size:11px;color:var(--muted);margin-top:8px;padding-left:2px}
+.funnel-legend .k{display:inline-flex;align-items:center;gap:6px}
+.funnel-legend .sw{width:14px;height:10px;display:inline-block;border-radius:2px}
+.report h3 .cnt{color:var(--muted);font-weight:400;font-family:"Arial";font-size:16px}
+/* Pipeline snapshot (tab3) */
+.snap{border:1px solid var(--line);background:var(--card);border-radius:10px;padding:20px 24px 22px;margin-bottom:8px}
+.snap-head{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line);padding-bottom:13px;margin-bottom:16px}
+.snap-cap{font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.snap-total{text-align:right;font-size:11px;color:var(--muted);line-height:1.2}
+.snap-total b{font-family:"Arial";font-size:24px;font-weight:600;color:var(--ink);display:inline-block;margin-right:5px}
+.snap-row{display:grid;grid-template-columns:158px 1fr 118px;align-items:center;gap:16px;padding:7px 0}
+.snap-row .sname{font-size:13px;font-weight:600;display:flex;align-items:center;gap:9px;line-height:1.2}
+.snap-row .sname .sd{width:11px;height:11px;border-radius:3px;flex-shrink:0}
+.snap-track{background:#eaeef1;border-radius:6px;height:36px;overflow:hidden}
+.snap-bar{height:36px;border-radius:6px;display:flex;align-items:center;justify-content:flex-end;padding:0 13px;min-width:46px;color:#fff;font-family:"Arial";font-weight:600;font-size:16px;transition:width .5s cubic-bezier(.2,.7,.2,1)}
+.snap-val{text-align:right;font-family:"Arial";font-size:14px;color:var(--text);font-weight:500}
+.snap-val small{color:var(--faint);font-size:10px;display:block;font-family:"Arial";font-weight:400;margin-top:1px}
+.snap-conv{display:grid;grid-template-columns:158px 1fr 118px;gap:16px}
+.snap-conv .c{grid-column:2;font-size:11px;color:var(--muted);padding:3px 0 3px 2px;display:flex;align-items:center;gap:7px}
+.snap-conv .c:before{content:"";width:2px;height:15px;background:var(--over);border-radius:2px;display:inline-block}
+.snap-conv .c b{color:var(--over);font-weight:600}
+.snap-flows{margin-top:16px;border-top:1px solid var(--line);padding-top:16px;display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.snap-flows .lbl{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-right:4px}
+.snap-stat{display:flex;flex-direction:column;gap:2px;padding:9px 15px;border-radius:8px;background:#f6f7f9;border:1px solid var(--line);min-width:96px}
+.snap-stat b{font-family:"Arial";font-size:19px;font-weight:600;line-height:1;color:var(--text)}
+.snap-stat span{font-size:10.5px;color:var(--muted)}
+.snap-stat.pos b{color:var(--over)}.snap-stat.neg b{color:var(--under)}
+@media(max-width:620px){.snap-row,.snap-conv{grid-template-columns:96px 1fr 78px;gap:9px}}
+
+/* Projection */
+.proj-grid{display:grid;grid-template-columns:420px 1fr;gap:34px;align-items:start}
+.proj-tiles{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);margin-bottom:20px;background:#f6f7f9}
+.proj-tiles .tile{padding:16px}.proj-tiles .fig{font-size:21px}
+.proj-panel h4{font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);font-weight:600;font-family:"Arial";border-bottom:1px solid var(--line);padding-bottom:8px;margin:0 0 12px}
+.addrow{display:flex;gap:8px;margin-bottom:14px}
+.addrow select{flex:1;min-width:0;font-family:"Arial";font-size:12.5px;padding:8px 9px;border:1px solid var(--line);background:#fbfcfd}
+.addrow button{flex-shrink:0;white-space:nowrap;font-family:"Arial";font-size:12px;font-weight:600;padding:8px 16px;background:var(--ink);color:#fbfcfd;border:1px solid var(--ink);cursor:pointer}
+.pcard{border:1px solid var(--line);background:var(--card);padding:12px 13px;margin-bottom:10px}
+.pcard .pc-top{display:flex;align-items:baseline;gap:8px;margin-bottom:9px}
+.pcard .pc-name{font-size:12.5px;font-weight:600;flex:1;line-height:1.25}
+.pcard .pc-name small{display:block;color:var(--faint);font-weight:400;font-size:10.5px}
+.pcard .pc-rm{background:none;border:0;color:var(--under);cursor:pointer;font-size:17px;line-height:1;padding:0 3px}
+.pcard .pc-val{display:flex;align-items:center;gap:7px;margin-bottom:10px}
+.pcard .pc-val label{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.pcard .pc-val input{font-family:"Arial";font-size:12.5px;width:110px;padding:6px 8px;border:1px solid var(--line);background:#fbfcfd}
+.alloc{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.alloc .am{display:flex;flex-direction:column;gap:3px}
+.alloc .am label{font-size:9px;letter-spacing:.04em;text-transform:uppercase;color:var(--faint);font-weight:600;text-align:center}
+.alloc .am input{font-family:"Arial";font-size:11.5px;text-align:center;padding:5px 3px;border:1px solid var(--line);background:#fbfcfd;width:100%}
+.alloc .am .amt{font-family:"Arial";font-size:9.5px;color:var(--over);text-align:center}
+.pc-sum{font-size:10.5px;font-family:"Arial";margin-top:8px;color:var(--faint)}
+.pc-sum.bad{color:var(--under);font-weight:600}
+.pc-sum.ok{color:var(--over)}
+.proj-empty{border:1px dashed var(--line);padding:20px;text-align:center;color:var(--faint);font-size:12px}
+
+/* Movement dashboard (tab1) */
+.period-bar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:22px}
+.pills{display:inline-flex;gap:5px;flex-wrap:wrap}
+.pill{font-family:"Arial";font-size:12px;font-weight:600;padding:7px 15px;border-radius:20px;border:1px solid var(--line);background:var(--card);color:var(--muted);cursor:pointer;transition:all .12s}
+.pill:hover:not(.disabled){border-color:var(--muted)}
+.pill.on{background:var(--ink);color:#fbfcfd;border-color:var(--ink)}
+.pill.disabled{opacity:.35;cursor:default}
+.custom-range{display:inline-flex;align-items:center;gap:7px;margin-left:6px;font-size:12px;color:var(--muted)}
+.custom-range select{font-family:"Arial";font-size:12.5px;padding:6px 8px;border:1px solid var(--line);background:#fbfcfd;border-radius:4px}
+.mv-scorecard{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:24px}
+.mv-tile{border:1px solid var(--line);background:var(--card);padding:15px 16px;border-radius:8px}
+.mv-tile .mvl{font-size:11px;color:var(--muted);font-weight:600;line-height:1.3;display:flex;align-items:flex-start;gap:6px;min-height:30px}
+.mv-tile .mvl .cdot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:4px}
+.mv-tile .mvn{font-family:"Arial";font-size:30px;font-weight:600;line-height:1;margin:6px 0 5px}
+.mv-tile .mvs{font-size:11px;color:var(--faint);font-family:"Arial"}
+.mv-charts{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.mv-card{border:1px solid var(--line);background:var(--card);border-radius:8px;padding:18px 18px 12px;position:relative}
+.mv-card h4{font-family:Georgia;font-size:15px;font-weight:600;margin:0 0 3px}
+.mv-card .desc{font-size:11.5px;color:var(--muted);margin:0 0 12px;line-height:1.4}
+.mv-card .chart-legend{margin:0 0 10px}
+.dotc-blue{background:#3b6fe0}.dotc-green{background:#25936a}.dotc-orange{background:#e07a3b}.dotc-red{background:#d24b3e}
+
+.report-masthead{border-bottom:3px solid var(--ink);padding-bottom:16px;margin-bottom:22px}
+.report-masthead .rm-brand{font-family:Georgia;font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.report-masthead .rm-title{font-size:27px;margin:8px 0 8px;line-height:1.08}
+.report-masthead .rm-period{font-family:"Arial";font-size:13px;color:var(--text)}
+.report-masthead .rm-period b{color:var(--ink)}
+.rate-sel{font-family:"Arial";font-weight:700;font-size:10px;letter-spacing:.05em;text-transform:uppercase;border-radius:4px;padding:3px 8px;cursor:pointer;border:1px solid var(--line)}
+.rate-sel.green{color:#2c6a48}.rate-sel.yellow{color:#8a6410}.rate-sel.red{color:#a03f2c}
+/* Editable assessment (tab3) */
+.assess-box{border:1px solid var(--line);background:var(--card);border-radius:8px;padding:16px 18px;margin-bottom:14px}
+.assess-head{display:flex;align-items:center;gap:10px;margin-bottom:9px}
+.assess-head h4{font-size:15px;margin:0;flex:1}
+.assess-head select{font-family:"Arial";font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:3px 8px;border:1px solid var(--line);border-radius:4px;cursor:pointer}
+.assess-body{font-size:13px;line-height:1.6;color:#33373f;outline:none;border-radius:4px;padding:4px 6px;margin:-4px -6px;transition:background .12s,box-shadow .12s}
+.assess-body:hover{background:#f6f7f9}
+.assess-body:focus{background:#fbfcfd;box-shadow:0 0 0 2px var(--line)}
+.assess-body:empty:before{content:attr(data-ph);color:var(--faint);font-style:italic}
+.edit-hint{font-size:11px;color:var(--faint);font-style:italic;margin:2px 0 14px}
+.assess-box.overall{border-color:var(--ink);border-width:1.5px;background:#f6f7f9}
+
+footer{padding:26px 0 60px;color:var(--faint);font-size:11px;line-height:1.65}
+footer .wrap{max-width:900px;border-top:1px solid var(--line);padding-top:18px}
+
+@media(max-width:960px){
+  .att-grid{grid-template-columns:1fr}.two-col{grid-template-columns:1fr;gap:26px}
+  .proj-grid{grid-template-columns:1fr}.proj-tiles{grid-template-columns:1fr 1fr}
+  .mv-charts{grid-template-columns:1fr}.mv-scorecard{grid-template-columns:1fr 1fr 1fr}
+  .score{grid-template-columns:1fr 1fr}.tile{border-bottom:1px solid var(--line)}
+  .hide-m{display:none}
+}
+@media(max-width:560px){.score,.proj-tiles{grid-template-columns:1fr}.mv-scorecard{grid-template-columns:1fr 1fr}.ms{min-width:calc(50vw - 34px)}.alloc{grid-template-columns:repeat(3,1fr)}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+
+/* Funnel (tab3) — SVG text */
+.snap svg.funnel{display:block;width:100%;height:auto;overflow:visible;margin:4px 0 2px}
+.snap svg.funnel .fseg{transition:opacity .12s}
+.snap svg.funnel .fname{font-family:Georgia,serif;font-weight:600;font-size:13.5px;fill:var(--text)}
+.snap svg.funnel .fsub{font-family:"Arial",sans-serif;font-size:10px;fill:var(--faint)}
+.snap svg.funnel .fcount{font-family:Georgia,serif;font-weight:700;fill:#fff}
+.snap svg.funnel .fval{font-family:"Arial",monospace;font-weight:600;font-size:14px;fill:var(--text)}
+.snap svg.funnel .fconv{font-family:"Arial",monospace;font-style:italic;font-size:10.5px;fill:var(--muted)}
+.snap svg.funnel .fedge{stroke:#d9d6cc;stroke-width:1}
+.snap svg.funnel .fbar{filter:drop-shadow(0 1px 1px rgba(20,24,31,.12))}
+
+/* Q3 waterfall (tab3) */
+.wf-card{border:1px solid var(--line);background:#f6f7f9;border-radius:8px;padding:18px 18px 10px;position:relative;margin:6px 0 2px}
+.wf-card svg{display:block;width:100%;height:auto;overflow:visible}
+.wf-card svg .wf-seg{cursor:pointer;transition:opacity .12s}
+.wf-card svg .wf-seg:hover{opacity:.86}
+.wf-card svg .wf-conn{stroke:var(--faint);stroke-width:1;stroke-dasharray:3 3}
+.wf-card svg .wf-tgt{cursor:pointer}
+.wf-card svg .wf-tgtlab{font-family:"Arial",monospace;font-size:9px;fill:var(--under);font-weight:600}
+.wf-card svg .wf-incr{font-family:"Arial",monospace;font-size:10.5px;font-weight:600;fill:var(--text)}
+.wf-card svg .wf-incrb{font-family:"Arial",monospace;font-size:11px;font-weight:600;fill:#fff}
+.wf-card svg .wf-cap{font-family:"Arial",sans-serif;font-size:10.5px;fill:var(--muted)}
+.wf-card svg .wf-ref{font-family:"Arial",monospace;font-size:10px;font-weight:600}
+.wf-legend{display:flex;gap:16px;flex-wrap:wrap;font-size:11px;color:var(--muted);margin:2px 2px 10px}
+.wf-legend .k{display:inline-flex;align-items:center;gap:6px}
+.wf-legend .sw{width:14px;height:10px;display:inline-block;border-radius:2px}
+.wf-legend .swl{width:16px;height:0;border-top:2px dashed var(--under);display:inline-block}
+
+/* Cohesive stage tables (tab3): Serious Dialogue / Active Exploratory / Pre-Exploratory */
+.stage-tbl{width:100%;border-collapse:collapse;font-size:12.5px;margin-top:6px;table-layout:fixed}
+.stage-tbl th{font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);font-weight:600;text-align:left;padding:9px 10px;border-bottom:1px solid var(--ink)}
+.stage-tbl th.num{text-align:right}
+.stage-tbl td{padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+.stage-tbl td.num{text-align:right;font-family:"Arial",monospace;font-variant-numeric:tabular-nums;white-space:nowrap;color:var(--text);font-weight:500}
+.stage-tbl tr.grp-start td{border-top:1px solid var(--line2)}
+.stage-tbl td.bkt{color:var(--muted);font-size:11px;line-height:1.35}
+.stage-tbl td.opp-c{font-weight:600;line-height:1.35;color:var(--text)}
+.stage-tbl td.opp-c .star{color:var(--under);font-weight:700;margin-right:3px}
+.stage-tbl .none{color:var(--faint)}
+.stage-legend{display:flex;gap:16px;flex-wrap:wrap;align-items:center;font-size:11px;color:var(--muted);margin:2px 0 4px}
+.stage-legend .k{display:inline-flex;align-items:center;gap:6px}
+.stage-legend .sw{width:12px;height:12px;border-radius:3px;display:inline-block}
+.stage-legend .star{color:var(--under);font-weight:700}
+@media(max-width:620px){.stage-tbl{table-layout:auto}.stage-tbl td.bkt{font-size:10.5px}}
+.report .stg-h{font-size:19px;margin:30px 0 4px;padding-bottom:7px;border-bottom:1.5px solid var(--brand-blue-lt);color:var(--brand-blue)}
+h4.stg-h{font-size:14.5px;margin:22px 0 4px;border-bottom:1px solid var(--line2);color:var(--text)}
+h4.stg-h .cnt{color:var(--muted);font-weight:400;font-size:13px}
+.stage-tbl td.empty-cell{text-align:center;color:var(--faint);padding:16px;font-size:12px}
+.rsub{margin:34px 0 2px;border-top:2px solid var(--ink);padding-top:14px}
+.rsub-h{font-size:17px;margin:0;border:0;color:var(--ink)}
+.rsub-p{font-size:12px;color:var(--muted);margin:5px 0 0;line-height:1.55}
+.pipe-count{font-size:11px;color:var(--muted);margin:10px 0 2px;letter-spacing:.03em}
+.od-cols{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:16px}
+
+.od-head{display:flex;justify-content:space-between;align-items:center;background:#f5f5f3;border:1px solid var(--line);border-radius:9px;padding:11px 15px;margin-bottom:12px}
+.od-t{font-weight:700;font-size:12.5px;color:var(--ink);letter-spacing:.02em}
+.od-n{color:var(--faint);font-size:12.5px;font-weight:600}
+.od-card{background:#fff;border:1px solid var(--line);border-radius:9px;margin-bottom:12px;overflow:hidden}
+.od-name{padding:12px 14px 8px;font-size:13.5px;font-weight:600;color:var(--brand-blue);line-height:1.35}
+.od-name .star{color:var(--brand-orange);margin-right:5px;font-size:11px;vertical-align:1px}
+.od-bkt{padding:9px 14px 11px;font-size:11.5px;color:var(--muted);border-top:1px solid var(--line2);background:#fafaf9}
+.od-empty{border:1px dashed var(--line);border-radius:9px;padding:20px;text-align:center;color:var(--faint);font-size:11.5px}
+.corridor{border-top:2px solid var(--line);padding-top:6px}
+@media(max-width:760px){.od-cols{grid-template-columns:1fr}}
+
+.report .filters{margin-top:14px}
+.tbl tr.grp-start td{border-top:1px solid var(--line2)}
+.tbl td.bkt{color:var(--muted);font-size:11px;line-height:1.35}
+
+
+/* Report section dividers (tab3) */
+.rsection{margin:40px 0 18px;padding-top:20px;border-top:2.5px solid var(--brand-orange)}
+.rsection .rs-eyebrow{font-family:"Arial",monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--brand-blue2);font-weight:700}
+.rsection h2.rs-title{font-family:Georgia,serif;font-size:23px;font-weight:600;margin:7px 0 5px;letter-spacing:-.01em;color:var(--brand-orange)}
+.rsection .rs-sub{font-size:12.5px;color:var(--muted);line-height:1.55;max-width:680px}
+/* soften the h3 rule when it sits directly under a section divider */
+.rsection + h3{border-bottom-width:1px}
+.wf-legend .swg{width:15px;height:11px;display:inline-block;border:1.5px dashed var(--under);border-radius:2px;box-sizing:border-box}
+</style>
+</head>
+<body>
+<header class="mast"><div class="wrap">
+  <div><div class="brand">Incandescent</div><h1>Business Development <em>2026</em></h1></div>
+  <div class="period">Built from the 2026 BD Tracker &amp; quarterly plan.<br>Reporting period <b>Aug 1 – Aug 20, 2026</b>.<br>MAW coaching, consulting, speaking &amp; IP excluded.</div>
+</div></header>
+
+<nav class="tabs"><div class="wrap" id="tabs">
+  <button data-tab="t1" class="active">Year-to-date position</button>
+  <button data-tab="t2">Accruals by month</button>
+  <button data-tab="t3">Pipeline snapshot</button>
+  <button data-tab="t4">Projections Tool</button>
+  <button data-tab="t5">Full database</button>
+  <div class="tabs-right"><span class="ver-pill" id="verPill"></span><button class="save-btn" id="saveBtn" title="Save a copy of this report with the syntheses and assessments you have written">Save as…</button></div>
+</div></nav>
+
+<!-- ================= TAB 1 ================= -->
+<div class="tab-panel active" id="t1">
+  <section class="band"><div class="wrap">
+    <div class="shead"><h2>Year-to-date position</h2><span class="meta">as of Aug 20, 2026</span></div>
+    <div class="score">
+      <div class="tile"><div class="lab">2026 Annual Plan</div><div class="fig">$13.00M</div><div class="sub">booked + pipeline target</div></div>
+      <div class="tile"><div class="lab">Booked · closed / MI</div><div class="fig">$8.71M</div><div class="sub"><span class="pct">67.0% of plan</span></div></div>
+      <div class="tile"><div class="lab">Serious Dialogue</div><div class="fig">$0.69M</div><div class="sub">5.3% of plan · valued SD only</div></div>
+      <div class="tile"><div class="lab">Total pipeline</div><div class="fig">$9.40M</div><div class="sub">72.3% of plan · <span class="neg">$3.60M gap</span></div></div>
+    </div>
+  </div></section>
+
+  <section class="band band-alt"><div class="wrap">
+    <div class="shead"><h2>Plan attainment by bucket</h2><span class="meta" id="att-meta"></span></div>
+    <p class="lead-in">Booked revenue against each bucket's annual plan. The vertical rule marks 100% of plan; bars that clear it (in green) are over plan. Systems Change is carrying the year; the Corporate &amp; PE segment holds the gap.</p>
+    <div class="att-grid" id="att-grid"></div>
+  </div></section>
+
+  <section class="band"><div class="wrap">
+    <div class="shead"><h2>Pipeline movement</h2><span class="meta" id="mvMeta"></span></div>
+    <div class="period-bar">
+      <div class="pills" id="mvPills">
+        <button class="pill on" data-r="ytd">YTD</button>
+        <button class="pill" data-r="q1">Q1</button>
+        <button class="pill" data-r="q2">Q2</button>
+        <button class="pill" data-r="q3">Q3</button>
+        <button class="pill" data-r="q4">Q4</button>
+      </div>
+      <span class="custom-range">Custom:
+        <select id="mvFrom"></select> to <select id="mvTo"></select>
+      </span>
+    </div>
+    <div class="mv-scorecard" id="mvScore"></div>
+    <div class="mv-charts">
+      <div class="mv-card"><h4>Opportunity flow by month</h4><p class="desc">Count of opportunities created, closed (incl. Mutual Intent), and lost.</p><div class="chart-legend" id="mvL1"></div><div id="mvC1"></div><div class="chart-tip" id="mvT1"></div></div>
+      <div class="mv-card"><h4>Value closed by month</h4><p class="desc">2026 revenue of opportunities reaching Mutual Intent or Closed.</p><div id="mvC2"></div><div class="chart-tip" id="mvT2"></div></div>
+      <div class="mv-card" style="grid-column:1/-1"><h4>Active pipeline over time</h4><p class="desc">Opportunities still in Active Exploratory or Serious Dialogue at each month-end — anything that had reached Mutual Intent, closed, or been lost by then drops out. Shaded blocks are new that month. Open opportunities at each monthly snapshot; lighter shades mark opportunities newly added that month.</p><div class="chart-legend" id="mvL4"></div><div id="mvC4"></div><div class="chart-tip" id="mvT4"></div></div>
+    </div>
+  </div></section>
+</div>
+
+<!-- ================= TAB 2 ================= -->
+<div class="tab-panel" id="t2">
+  <section class="band"><div class="wrap">
+    <div class="shead"><h2>Booked accruals by month</h2><span class="meta" id="acc-meta"></span></div>
+    <p class="lead-in">Monthly booked revenue (closed &amp; mutual-intent deals) across 2026, against the quarterly plan's monthly targets. Filter first — the chart responds. Hover any bar for the client-level breakdown.</p>
+
+    <div class="filters" id="f2wrap">
+      <div class="row">
+        <div class="fgroup ms"><label>Revenue bucket</label><div id="f2Bucket"></div></div>
+        <div class="fgroup ms"><label>Stage</label><div id="f2Stage"></div></div>
+        <div class="fgroup ms"><label>Quarter (accrual)</label><div id="f2Quarter"></div></div>
+        <div class="fgroup ms"><label>BD team</label><div id="f2Lead"></div></div>
+        <div class="fgroup"><label>Date range</label><div class="date-pair"><input type="date" id="f2From"><span>to</span><input type="date" id="f2To"></div></div>
+        <div class="reset"><button id="f2Reset" disabled>Reset</button></div>
+      </div>
+      <div class="filt-help" id="f2Help"></div>
+    </div>
+
+    <div class="chart-wrap" style="margin-top:20px">
+      <div class="chart-controls">
+        <div class="seg-toggle" id="c2Mode">
+          <button data-mode="segment" class="on">By segment</button>
+          <button data-mode="bucket">By bucket</button>
+        </div>
+        <div class="chart-legend" id="c2Legend"></div>
+      </div>
+      <div id="c2Chart"></div>
+      <div class="chart-tip" id="c2Tip"></div>
+    </div>
+
+    <div class="mini" style="margin-top:28px">
+      <h4>Accrual target vs booked — by month</h4>
+      <div style="overflow-x:auto"><table class="tbl" id="c2Table"></table></div>
+      <p class="help" id="c2TblNote"></p>
+    </div>
+
+    <div class="corridor">
+      <div class="shead" style="margin-top:34px"><h2>Q3 corridor — booked against target</h2><span class="meta">Jul · Aug · Sep 2026</span></div>
+      <p class="lead-in">July, August and September booked accruals ladder up toward the $2.60M Q3 target. Each month carries its own target (July $700K, August $800K, September $1.1M), shown as the dashed outline on each step. Booked deals are scheduled to accrue <b>$2.07M</b> in Q3 — about 79% of target, leaving a <b>$0.53M</b> gap. The dotted line marks the $3.0M threshold for a financially successful quarter. Hover any step for the client-level breakdown.</p>
+      <div class="wf-legend"><span class="k"><span class="sw" style="background:#3e8e5a"></span> Booked (scheduled accrual)</span><span class="k"><span class="swg"></span> Monthly target</span><span class="k"><span class="sw" style="background:#e4d9c4;border:1px solid #cbb98f"></span> Gap to target</span><span class="k"><span class="swl"></span> Q3 target $2.60M</span></div>
+      <div class="wf-card"><div id="q3wf"></div><div class="chart-tip" id="q3wfTip"></div></div>
+    </div>
+  </div></section>
+</div>
+
+<!-- ================= TAB 3 ================= -->
+<div class="tab-panel" id="t3">
+  <section class="band"><div class="wrap"><div class="report" id="report"></div></div></section>
+</div>
+
+<!-- ================= TAB 4 ================= -->
+<div class="tab-panel" id="t4">
+  <section class="band"><div class="wrap">
+    <div class="shead"><h2>Year-end revenue projection</h2><span class="meta">what-if tool</span></div>
+    <p class="lead-in">Start from booked revenue already locked in, then add pipeline or hypothetical opportunities and set how each one's value accrues month by month. The chart and totals update live against the $13M plan.</p>
+    <div class="proj-tiles" id="projTiles"></div>
+    <div class="proj-grid">
+      <div class="proj-panel">
+        <h4>Add an opportunity</h4>
+        <div class="addrow">
+          <select id="pipeSelect"></select>
+          <button id="pipeAdd">Add</button>
+        </div>
+        <div id="projList"></div>
+      </div>
+      <div class="proj-panel">
+        <div class="chart-wrap"><div class="chart-legend" id="projLegend" style="margin:0 0 14px"></div><div id="projChart"></div><div class="chart-tip" id="projTip"></div></div>
+        <p class="help" id="projNote" style="margin-top:12px"></p>
+        <table class="tbl" style="margin-top:22px"><thead><tr><th>Component</th><th class="num">Rest-of-year (Aug–Dec)</th><th class="num">Full-year total</th></tr></thead><tbody id="projRows"></tbody></table>
+      </div>
+    </div>
+  </div></section>
+</div>
+
+<!-- ================= TAB 5 ================= -->
+<div class="tab-panel" id="t5">
+  <section class="band"><div class="wrap">
+    <div class="shead"><h2>Full database</h2><span class="meta" id="t5count"></span></div>
+    <div class="filters" id="f5wrap">
+      <div class="row">
+        <div class="fgroup ms"><label>Revenue bucket</label><div id="f5Bucket"></div></div>
+        <div class="fgroup ms"><label>Stage</label><div id="f5Stage"></div></div>
+        <div class="fgroup ms"><label>Quarter (accrual)</label><div id="f5Quarter"></div></div>
+        <div class="fgroup ms"><label>BD lead</label><div id="f5Lead"></div></div>
+        <div class="fgroup"><label>Date range</label><div class="date-pair"><input type="date" id="f5From"><span>to</span><input type="date" id="f5To"></div></div>
+        <div class="reset"><button id="f5Reset" disabled>Reset</button></div>
+      </div>
+      <div class="filt-help" id="f5Help"></div>
+    </div>
+    <table class="ledger" style="margin-top:20px"><thead><tr>
+      <th data-sort="o">Opportunity <span class="arr">▼</span></th>
+      <th data-sort="b" class="hide-m">Bucket / lead <span class="arr">▼</span></th>
+      <th data-sort="s">Stage <span class="arr">▼</span></th>
+      <th data-sort="d" class="hide-m">Date <span class="arr">▼</span></th>
+      <th class="hide-m">2026 shape</th>
+      <th data-sort="r" class="num sorted">2026 Rev <span class="arr">▼</span></th>
+    </tr></thead><tbody id="t5rows"></tbody></table>
+    <div class="tfoot"><span class="l">Booked in view (closed + MI)</span><span class="r mono" id="t5foot">$0</span></div>
+  </div></section>
+</div>
+
+<footer><div class="wrap">
+  Deal-level figures, buckets, leads, stages and dates are from the 2026 BD Tracker as provided; monthly accrual targets are from the 2026 quarterly plan (Q3 by month; Q1/Q2/Q4 split evenly from quarterly totals). "Booked" is 2026 accrual for Closed or Mutual-Intent opportunities and reconciles to the tracker dashboard ($8,707,250). A few of the newest deals carry leads inferred from the same client's prior engagements. Projections are a planning aid, not a forecast.
+</div></footer>
+<script>
+const DATA={"deals":[{"o":"ACLU","c":"ACLU","b":"S.C. Democracy, Pluralism, Belonging","l":["Shanti","Jessica"],"s":"Longer-term Explorations","cl":"","lo":"","ad":"","aesd":"","m":[0,0,0,0,0,0,0,0,0,0,0,0],"r":0,"st":"","sy":"","n":"","in_days":null,"q":[0,0,0,0]},{"o":"ADI","c":"ADI","b":"Corp. Existing Relationships (Current & Returning)","l":["Niko"],"s":"Longer-term Explorations","cl":"","lo":"","ad":"","aesd":"","m":[0,0,0,0,0,0,0,0,0,0,0,0],"r":0,"st":"","sy":"","n":"","in_days":null,"q":[0,0,0,0]},{"o":"Alta Futures","c":"Alta Futures","b":"S.C. Opportunistic/Tactical New BD","l":["Shanti","Kara"],"s":"Longer-term Explorations","cl":"","lo":"","ad":"","aesd":"","m":[0,0,0,0,0,0,0,0,0,0,0,0],"r":0,"st":"","sy":"","n":"","in_days":null,"q":[0,0,0,0]},{"o":"Carlyle","c":"Carlyle","b":"Private Equity","l":["Niko"],"s":"Longer-term Explorations","cl":"","lo":"","ad":"","aesd":"","m":[0,0,0,0,0,0,0,0,0,0,0,0],"r":0,"st":"red","sy":"Red: After over a year of conversations, Niko's attempted to reengage Matt through Lila. Niko Team will discuss on how we are thinking about reasonable next steps here in Q1 '26.","n":"","in_days":null,"q":[0,0,0,0]},{"o":"CD&R","c":"CD&R","b":"Private Equity","l":["Niko","Leslie"],"s":"Longer-term Explorations","cl":"","lo":"","ad":"","aesd":"","m":[0,0,0,0,0,0,0,0,0,0,0,0],"r":0,"st":"green","sy":"Green: An evergreen anchor active exploratory conversation -- we're working with Jenny to create a playbook to share with the industrials business as a means of finding more at-bats with CD&R, which we'd like to become an anchor to the platform.","n":"","in_days":null,"q":[0,0,0,0]},{"o":"Centerbridge","c":"Centerbridge","b":"Private Equity","l":["Traci","Leslie"],"s":"Longer-term Explorations","cl":"","lo":"","ad":"","aesd":"","m":[0,0,0,0,0,0,0,0,0,0,0,0],"r":0,"st":"green","sy":"Green: Our stance is to continue engaging Natalie while she is on the lookout for PortCos that could use our help.","n":"","in_days":null,"q":[0,0,0,0]},{"o":"Clean Energy Ventures","c":"Clean Energy Ventures","b":"Corp. New Business Development","l":["Dean","Traci"],"s":"Longer-term Explorations","cl":"","lo":"","ad":"","aesd":"","m":[0,0,0,0,0,0,0,0,0,0,0,0],"r":0,"st":"green","sy":"Green: Dean and Traci will continue light-touch exploration while we sort out questions about influence with the COO/CEO pair, strategic fit, and commercial model. Green because it is low-cost to maintain, not because it is close to closing.","n":"","in_days":null,"q":[0,0,0,0]},{"o":"Daimler Truck - 2.0","c":"Daimler Truck","b":"Corp. MAW Collaboration","l":["Niko","Dominique"],"s":"Longer-term Explorations","cl":"","lo":"","ad":"","aesd":"","m":[0,0,0,0,0,0,0,0,0,0,0,0],"r":0,"st":"yellow","sy":"Yellow: DT has expressed that they value our perspective and would like to continue the conversation after their annual leadership meeting. Quiet right now, will look to reengage in August to understand the path forward. The relationship remains worth cultivating in our broader BD system, but it does not meet the criteria for inclusion in Active Exploratory portfolio reporting.","n":"","in_days":null,"q":[0,0,0,0]},{"o":"Google – PXO","c":"Google – PXO","b":"Corp. New Business Development","l":["Traci","Niko","Rosy"],"s":"Longer-term Explorations","cl":"","lo":"","ad":"","aesd":"","m":[0,0,0,0,0,0,0,0,0,0,0,0],"r":0,"st":"","sy":"","n":"","in_days":null,"q":[0,0,0,0]},{"o":"OCP - DDOCP Phase 3 - Strategic Committee","c":"OCP","b":"Corp. MAW Collaboration","l":["Dominique"],"s":"Longer-term Explorations","cl":"","lo":"","ad":"","aesd":"","m":[0,0,0,0,0,0,0,0,0,0,0,0],"r":0,"st":"yellow","sy":"Yellow: There's mutual commitment to working together in 2026, but timing is hard to pin down.","n":"","in_days":null,"q":[0,0,0,0]},{"o":"Prudential - AI","c":"Prudential","b":"Corp. New Business Development","l":["Niko"],"s":"Longer-term Explorations","cl":"","lo":"","ad":"","aesd":"","m":[0,0,0,0,0,0,0,0,0,0,0,0],"r":0,"st":"red","sy":"Red: We previously developed initial thought partnership, but follow-up has not generated further action or a clear next step. This remains worth cultivating through Marc, but it is not an immediate pipeline opportunity and should not remain Active Exploratory, even though the relationship might later revive.","n":"","in_days":null,"q":[0,0,0,0]},{"o":"Salesforce - REWS Team at the Top","c":"Salesforce","b":"Corp. Existing Relationships (Current & Returning)","l":["Traci"],"s":"Longer-term Explorations","cl":"","lo":"","ad":"","aesd":"","m":[0,0,0,0,0,0,0,0,0,0,0,0],"r":0,"st":"red","sy":"Red: This has stalled, and our action is limited while Relina is off the grid on vacation. If there's no further movement on this when Relina returns from vacation (later in Aug) we'll drop this.","n":"","in_days":null,"q":[0,0,0,0]},{"o":"Allianz","c":"Allianz","b":"Corp. MAW Collaboration","l":["Niko","Bob"],"s":"Active Exploratory","cl":"","lo":"","ad":"11/25/2025","aesd":"11/25/2025","m":[0,0,0,0,0,0,0,0,0,0,0,0],"r":0,"st":"yellow","sy":"Yellow: Oliver thanked the team for the January memo and asked to reconnect in the fall once there is greater clarity about the team structure. Cadence is currently paused. Bob’s last touchpoint with the Chief of Staff was April 13, and he plans to reconnect in September. The opportunity remains yellow and at risk because the timing and Allianz team configuration are not yet clear.","n":"","in_days":268,"q":[0,0,0,0],"sdae":"2/1/2026"},{"o":"Apollo - Extension 3","c":"Apollo","b":"Private Equity","l":["Niko"],"s":"Active Exploratory","cl":"","lo":"","ad":"7/1/2026","aesd":"","m":[0,0,0,0,0,0,0,0,0,0,0,0],"r":0,"st":"yellow","sy":"Yellow:","n":"","in_days":50,"q":[0,0,0,0]},{"o":"Bain Capital","c":"Bain Capital","b":"Private Equity","l":["Niko","Traci","Doug","Ananya"],"s":"Active Exploratory","cl":"","lo":"","ad":"3/17/2025","aesd":"","m":[0,0,0,0,0,0,0,0,0,0,0,0],"r":0,"st":"green","sy":"Green: The earlier GPS exploration helped demonstrate the value we could add, and PGP is helping us maintain a regular cadence with Surbhi while we look for the right opportunity. We are executing the early relationship-building play well, but this is not yet Serious Dialogue because the relevant portfolio-company stakeholder, defined problem statement, and commitment to advance are not yet in place. PGP should not be counted as a separate opportunity at this stage.","n":"","in_days":521,"q":[0,0,0,0]},{"o":"CD&R - Opella","c":"CD&R","b":"Private Equity","l":["Niko"],"s":"Active Exploratory","cl":"","lo":"","ad":"8/3/2026","aesd":"","m":[0,0,0,0,0,0,0,0,0,0,0,0],"r":0,"st":"green","sy":"Green: The next advance is a conversation with the CEO to understand the priority and determine whether there is a defined opportunity to explore together. Despite support from the Chairman, we are holding this in AE not SD as the CEO will be the buyer and we are not yet sure how she will engage/respond. The path forward will be clearer following a touchpoint with the CEO later this month.","n":"","in_days":17,"q":[0,0,0,0]},{"o":"Digital Harbor Foundation","c":"Digital Harbor Foundation","b":"S.C. Opportunistic/Tactical New BD","l":["Jessica"],"s":"Active Exploratory","cl":"","lo":"","ad":"4/27/2026","aesd":"","m":[0,0,0,0,0,0,0,0,0,0,0,0],"r":0,"st":"green","sy":"Green: promising but early; RFP is delayed given \"urgent matters\" on their end.","n":"","in_days":115,"q":[0,0,0,0]},{"o":"Elliott Management","c":"Elliott Management","b":"Private Equity","l":["Traci","Niko"],"s":"Active Exploratory","cl":"","lo":"","ad":"8/11/2026","aesd":"","m":[0,0,0,0,0,0,0,0,0,0,0,0],"r":0,"st":"green","sy":"Green: The opportunity has good initial momentum and we are in dialogue with the right stakeholders to move toward a decision.","n":"","in_days":9,"q":[0,0,0,0]},{"o":"Fortifi","c":"Fortifi","b":"Corp. New Business Development","l":["Niko"],"s":"Active Exploratory","cl":"","lo":"","ad":"4/18/2025","aesd":"3/3/2026","m":[0,0,0,0,0,0,0,0,0,0,0,0],"r":0,"st":"yellow","sy":"Yellow: The fit and mutuality are strong, but the opportunity is at the outer edge of cadence (last touchpoint was April 23rd) and the path forward is not yet sharply visualized. Massimo wants a plan that fits within a stated budget for work expected to begin in early 2027 and is willing to stay in touch until then. It's in our court to pick up a communications cadence and stay engaged.","n":"","in_days":489,"q":[0,0,0,0],"sdae":"5/8/2026"},{"o":"GE Vernova","c":"GE Vernova","b":"Corp. MAW Collaboration","l":["Niko","Bob"],"s":"Active Exploratory","cl":"","lo":"","ad":"7/7/2026","aesd":"","m":[0,0,0,0,0,0,0,0,0,0,0,0],"r":0,"st":"green","sy":"Green: The CPO here previously served as CHRO at Novartis, the most important Minds at Work journey to date, and is investing three hours in a face-to-face working session on August 24th after the initial conversation. The large public-company context, strong relationship, and network density create a promising platform for exploration. The specific business problem and path to engagement still need to be sharpened.","n":"","in_days":44,"q":[0,0,0,0]},{"o":"Pfizer - Field Medical Value Proposition","c":"Pfizer","b":"Corp. Existing Relationships (Current & Returning)","l":["Traci","Doug"],"s":"Active Exploratory","cl":"","lo":"","ad":"8/13/2026","aesd":"","m":[0,0,0,0,0,0,0,0,0,0,0,0],"r":0,"st":"green","sy":"Green: we were invited to send Stuart a proposal early on, which we've done, but there are many open questions about scope and price, which is why we're treating this as a green AE as opposed to a yellow SD.","n":"","in_days":7,"q":[0,0,0,0]},{"o":"RPA/RBF extension","c":"RPA/RBF extension","b":"S.C. Long-Standing Relationships","l":["Shanti","Niko"],"s":"Active Exploratory","cl":"","lo":"","ad":"5/27/2026","aesd":"","m":[0,0,0,0,0,0,0,0,0,0,0,0],"r":0,"st":"green","sy":"Green: The opportunity is still early, and we are clarifying who is exploring what and which stakeholder or problem should anchor the next step (e.g., several stakeholders involved). We are sustaining the right conversations and positioning ourselves to have the right discussion at the right time. The green color reflects execution of the relationship, not near-term revenue probability.","n":"","in_days":85,"q":[0,0,0,0]},{"o":"Southland Industries","c":"Southland Industries","b":"Corp. New Business Development","l":["Traci","Niko"],"s":"Active Exploratory","cl":"","lo":"","ad":"7/9/2026","aesd":"","m":[0,0,0,0,0,0,0,0,0,0,0,0],"r":0,"st":"green","sy":"Green: lots of pull from Southland's direction, but advancing this depends on the CEO's buy-in. We expect to have more clarity on that in the coming week","n":"","in_days":42,"q":[0,0,0,0]},{"o":"Surdna Foundation Extension","c":"Surdna Foundation Extension","b":"S.C. Opportunistic/Tactical New BD","l":["Shanti","Jessica"],"s":"Active Exploratory","cl":"","lo":"","ad":"8/3/2026","aesd":"","m":[0,0,0,0,0,0,0,0,0,48750,48750,48750],"r":146250,"st":"green","sy":"Green: Not yet in serious dialogue, but we expect it to close","n":"","in_days":17,"q":[0,0,0,146250]},{"o":"Alliance for Higher Education","c":"Alliance for Higher Education","b":"S.C. Opportunistic/Tactical New BD","l":["Shanti"],"s":"Closed","cl":"8/25/2025","lo":"","ad":"7/16/2025","aesd":"7/30/2025","m":[40000,0,0,0,0,0,0,0,0,0,0,0],"r":40000,"st":"green","sy":"Green: We are in early but promising conversations to understand what they are trying to build and what support they need.","n":"Total 200K, 40K in Jan","in_days":null,"q":[40000,0,0,0]},{"o":"AMPP - China","c":"AMPP","b":"S.C. Long-Standing Relationships","l":["Niko","Ananya"],"s":"Closed","cl":"2/16/2026","lo":"","ad":"","aesd":"","m":[18000,0,0,0,0,0,0,0,0,0,0,0],"r":18000,"st":"green","sy":"Green: We are DEFINITELY doing this work, just need to send out invoice and confirm #s","n":"","in_days":null,"q":[18000,0,0,0]},{"o":"AMPP - China 02A","c":"AMPP","b":"S.C. Long-Standing Relationships","l":["Niko","Ananya"],"s":"Closed","cl":"3/14/2026","lo":"","ad":"","aesd":"","m":[0,55750,55750,0,0,0,0,0,0,0,0,0],"r":111500,"st":"","sy":"","n":"","in_days":null,"q":[111500,0,0,0]},{"o":"AMPP - China 02B","c":"AMPP","b":"S.C. Long-Standing Relationships","l":["Niko","Ananya"],"s":"Closed","cl":"3/14/2026","lo":"","ad":"","aesd":"","m":[0,0,0,17750,17750,17750,0,0,0,0,0,0],"r":53250,"st":"","sy":"","n":"","in_days":null,"q":[0,53250,0,0]},{"o":"AMPP - Other","c":"AMPP","b":"S.C. Long-Standing Relationships","l":["Niko","Ananya"],"s":"Closed","cl":"3/14/2026","lo":"","ad":"","aesd":"","m":[5000,5000,25000,25000,0,0,0,0,0,0,0,0],"r":60000,"st":"","sy":"","n":"","in_days":null,"q":[35000,25000,0,0]},{"o":"AMPP - TalentFORCE","c":"AMPP","b":"S.C. Long-Standing Relationships","l":["Shanti"],"s":"Closed","cl":"2/18/2026","lo":"","ad":"2/3/2026","aesd":"2/18/2026","m":[0,37500,50000,37500,0,0,0,0,0,0,0,0],"r":125000,"st":"green","sy":"Green: Shanti and Alan talked and there may be a bounded role for us to help them with a pitch deck. We are following up with others on his team to understand the need more next week.","n":"","in_days":null,"q":[87500,37500,0,0]},{"o":"Apollo - Extension","c":"Apollo","b":"Private Equity","l":["Niko","Ashna"],"s":"Closed","cl":"3/25/2026","lo":"","ad":"1/16/2026","aesd":"1/16/2026","m":[150000,100000,0,0,0,0,0,0,0,0,0,0],"r":250000,"st":"yellow","sy":"Yellow: Active work is underway but commercial terms remain unclear.","n":"","in_days":null,"q":[250000,0,0,0]},{"o":"Apollo - Extension 2","c":"Apollo","b":"Private Equity","l":["Niko","Ashna"],"s":"Closed","cl":"6/11/2026","lo":"","ad":"5/7/2026","aesd":"5/7/2026","m":[0,70000,140000,175000,200000,190000,0,0,0,0,0,0],"r":775000,"st":"green","sy":"Green: This has been the dominant delivery focus for Niko and the team expects continued Apollo work. Niko has been deeply embedded as a central thought partner, including invitation to the partner offsite and co-lead on the NYU workshop.","n":"","in_days":null,"q":[210000,565000,0,0]},{"o":"Certara","c":"Certara","b":"Corp. New Business Development","l":["Niko","Doug"],"s":"Closed","cl":"6/11/2026","lo":"","ad":"3/17/2026","aesd":"3/18/2026","m":[0,0,32500,162500,130000,180000,0,0,0,0,0,0],"r":505000,"st":"green","sy":"Green: Large, multi-workstream engagement in flight and now a cornerstone corporate client. Near-term focus is helping Jon and Anna land the future-state org and senior leadership changes, prepare a board subset discussion in early April, and orchestrate BU creation and org announcements ahead of the May 6 earnings call; further work on product market research, AI, and culture/“Certara Way” will be sequenced once this first transition wave is committed.","n":"","in_days":null,"q":[32500,472500,0,0]},{"o":"Cisco 02 - Silicon One Leadership & Org","c":"Cisco","b":"Corp. Existing Relationships (Current & Returning)","l":["Traci","Maya","Doug"],"s":"Closed","cl":"11/17/2025","lo":"","ad":"11/10/2025","aesd":"11/14/2025","m":[100000,0,0,0,0,0,0,0,0,0,0,0],"r":100000,"st":"green","sy":"Green: Martin has greenlit us working with his new leader Nick; we are now working on the proposal.","n":"","in_days":null,"q":[100000,0,0,0]},{"o":"Cisco 02 - Silicon One Leadership & Org Phase 2 (extension)","c":"Cisco","b":"Corp. Existing Relationships (Current & Returning)","l":["Traci","Maya","Doug"],"s":"Closed","cl":"1/30/2026","lo":"","ad":"1/26/2026","aesd":"1/26/2026","m":[0,100000,100000,100000,0,0,0,0,0,0,0,0],"r":300000,"st":"green","sy":"Green: Martin has greenlit us working with his new leader Nick; we are now working on the proposal.","n":"","in_days":null,"q":[200000,100000,0,0]},{"o":"Cisco 02 - Silicon One Leadership & Org Phase 3 (extension)","c":"Cisco","b":"Corp. Existing Relationships (Current & Returning)","l":["Traci","Maya","Doug"],"s":"Closed","cl":"4/3/2026","lo":"","ad":"4/1/2026","aesd":"4/1/2026","m":[0,0,0,0,100000,100000,100000,0,0,0,0,0],"r":300000,"st":"","sy":"","n":"","in_days":null,"q":[0,200000,100000,0]},{"o":"Cisco 03 - SaO Leadership & Org - Marco","c":"Cisco","b":"Corp. Existing Relationships (Current & Returning)","l":["Traci","Maya","Isabelle"],"s":"Closed","cl":"12/16/2025","lo":"","ad":"12/1/2025","aesd":"12/1/2025","m":[120000,120000,0,0,0,0,0,0,0,0,0,0],"r":240000,"st":"","sy":"","n":"","in_days":null,"q":[240000,0,0,0]},{"o":"Cisco 03 - SaO Leadership & Org - Marco Phase 2 (extension)","c":"Cisco","b":"Corp. Existing Relationships (Current & Returning)","l":["Traci","Maya","Isabelle"],"s":"Closed","cl":"2/5/2026","lo":"","ad":"2/1/2026","aesd":"2/1/2026","m":[0,0,130000,130000,130000,0,0,0,0,0,0,0],"r":390000,"st":"","sy":"","n":"","in_days":null,"q":[130000,260000,0,0]},{"o":"Cisco 03 - SaO Leadership & Org - Marco Phase 3 (extension)","c":"Cisco","b":"Corp. Existing Relationships (Current & Returning)","l":["Traci","Maya","Miki"],"s":"Closed","cl":"5/11/2026","lo":"","ad":"4/28/2026","aesd":"4/28/2026","m":[0,0,0,0,0,130000,130000,130000,0,0,0,0],"r":390000,"st":"green","sy":"Green: Likely to close.","n":"","in_days":null,"q":[0,130000,260000,0]},{"o":"Cisco 04 - CHG Transition","c":"Cisco","b":"Corp. Existing Relationships (Current & Returning)","l":["Traci","Maya","Miki"],"s":"Closed","cl":"6/4/2026","lo":"","ad":"5/7/2026","aesd":"5/29/2026","m":[0,0,0,0,100000,100000,100000,0,0,0,0,0],"r":300000,"st":"green","sy":"Green: Advancing and likely to close","n":"","in_days":null,"q":[0,200000,100000,0]},{"o":"Climate Breakthrough","c":"Climate Breakthrough","b":"S.C. Climate","l":["Kara","Shanti"],"s":"Closed","cl":"12/16/2025","lo":"","ad":"10/2/2025","aesd":"10/15/2025","m":[16667,16667,16667,16667,16666,16666,0,0,0,0,0,0],"r":100000,"st":"green","sy":"Green: Kara submitted a RFP for a competitive process and is touching base with them week of 12/8.","n":"","in_days":null,"q":[50001,49999,0,0]},{"o":"Credit Human - Mission Council","c":"Credit Human","b":"Corp. MAW Collaboration","l":["Julia","Niko"],"s":"Closed","cl":"2/26/2026","lo":"","ad":"12/6/2025","aesd":"12/10/2025","m":[15000,15000,15000,0,0,0,0,0,0,0,0,0],"r":45000,"st":"green","sy":"Green: After spending the last month getting clear on the work in New Orleans we would do, we've sent a proposal to the CEO to get thoughts and hopefully reach close.","n":"110K total: 25k for bob coaching to MAW, 85K split for ITC 6 weeks with MRS cohort.","in_days":null,"q":[45000,0,0,0]},{"o":"Credit Human - NOLA - Phase 1","c":"Credit Human","b":"Corp. MAW Collaboration","l":["Julia","Niko"],"s":"Closed","cl":"3/31/2026","lo":"","ad":"2/26/2026","aesd":"2/26/2026","m":[0,0,0,14167,14167,14166,0,0,0,0,0,0],"r":42500,"st":"green","sy":"Green: After spending the last month getting clear on the work in New Orleans we would do, we've sent a proposal to the CEO to get thoughts and hopefully reach close.","n":"","in_days":null,"q":[0,42500,0,0]},{"o":"Credit Human - NOLA - Phase 2","c":"Credit Human","b":"Corp. MAW Collaboration","l":["Julia","Niko"],"s":"Closed","cl":"3/31/2026","lo":"","ad":"2/26/2026","aesd":"2/26/2026","m":[0,0,0,0,0,0,19000,19000,19000,0,0,0],"r":57000,"st":"green","sy":"Green: After spending the last month getting clear on the work in New Orleans we would do, we've sent a proposal to the CEO to get thoughts and hopefully reach close.","n":"Initially scoped at  $ 42,500  but increased to 57K with the addendum of 2 other ITC maps.","in_days":null,"q":[0,0,57000,0]},{"o":"Democracy Fund - Extension 5","c":"Democracy Fund","b":"S.C. Omidyar Universe","l":["Shanti","Elsa"],"s":"Closed","cl":"2/6/2026","lo":"","ad":"12/18/2025","aesd":"12/18/2025","m":[33333,33333,33334,0,0,0,0,0,0,0,0,0],"r":100000,"st":"green","sy":"Green: We are meeting with Sanjiv to scope on 1/7","n":"","in_days":null,"q":[100000,0,0,0]},{"o":"Democracy Fund - Extension 6","c":"Democracy Fund","b":"S.C. Omidyar Universe","l":["Shanti","Elsa"],"s":"Closed","cl":"4/29/2026","lo":"","ad":"3/30/2026","aesd":"3/30/2026","m":[0,0,0,0,40000,10000,0,0,0,0,0,0],"r":50000,"st":"green","sy":"Green: a 4/10 conversation with Kelly, Sanjeev, and Donata will determine whether to scope a new ops or RET engagement (an Extension 7) and what timing makes sense, with their June board discussion and internal staffing moves likely shaping demand.","n":"","in_days":null,"q":[0,50000,0,0]},{"o":"Democracy Fund - Extension 7","c":"Democracy Fund","b":"S.C. Omidyar Universe","l":["Shanti","Henry"],"s":"Closed","cl":"6/15/2026","lo":"","ad":"6/2/2026","aesd":"6/2/2026","m":[0,0,0,0,0,0,29000,58000,58000,0,0,0],"r":145000,"st":"green","sy":"Green: Shanti is submitting a proposal to Kelly this week","n":"","in_days":null,"q":[0,0,145000,0]},{"o":"ECMC","c":"ECMC","b":"S.C. Opportunistic/Tactical New BD","l":["Jessica","Shanti","Henry"],"s":"Closed","cl":"7/24/2026","lo":"","ad":"5/8/2026","aesd":"5/22/2026","m":[0,0,0,0,0,0,0,0,81250,81250,81250,81250],"r":325000,"st":"green","sy":"Green: Closed at $325K.","n":"","in_days":null,"q":[0,0,81250,243750]},{"o":"Ford Foundation - Tranformation","c":"Ford Foundation","b":"S.C. Emergent/New Constellations","l":["Shanti","Jessica","Niko"],"s":"Closed","cl":"5/6/2026","lo":"","ad":"2/2/2026","aesd":"4/1/2026","m":[0,0,0,0,97500,97500,97500,97500,97500,97500,0,0],"r":585000,"st":"green","sy":"Green: We've had conversations with Depelsha and agreed to do an initial series of workshops in the gift economy. We sent a proposal at multiple \"tiers\" which is in their court to discuss.","n":"","in_days":null,"q":[0,195000,292500,97500]},{"o":"Funders Table - Mexico City","c":"Funders Table","b":"S.C. Climate","l":["Shanti","Kara"],"s":"Closed","cl":"2/16/2025","lo":"","ad":"","aesd":"","m":[0,83333,83333,83334,0,0,0,0,0,0,0,0],"r":250000,"st":"green","sy":"Green: We have a conversation scheduled with Christie on 1/12 and have been in conversation with Hannah.","n":"","in_days":null,"q":[166666,83334,0,0]},{"o":"Humanity United","c":"Humanity United","b":"S.C. Omidyar Universe","l":["Jessica","Shanti"],"s":"Closed","cl":"12/18/2025","lo":"","ad":"11/11/2025","aesd":"12/3/2025","m":[0,0,0,13334,13334,13333,33333,33333,33333,20000,20000,20000],"r":200000,"st":"green","sy":"Green: Shanti and Jessica had multiple good conversations and are preparing a proposal; figuring out how to scope something deliverable within budget.","n":"","in_days":null,"q":[0,40001,99999,60000]},{"o":"Intermediary Ed","c":"Intermediary Ed","b":"S.C. Opportunistic/Tactical New BD","l":["Jessica"],"s":"Closed","cl":"6/24/2026","lo":"","ad":"6/8/2026","aesd":"","m":[0,0,0,0,0,0,15000,15000,0,0,0,0],"r":30000,"st":"green","sy":"Green: early convo, Jessica is talking to them again on 6/9.","n":"","in_days":null,"q":[0,0,30000,0]},{"o":"Metlife - Marketing Strategy Execution - ext. 3","c":"Metlife","b":"Corp. Existing Relationships (Current & Returning)","l":["Traci","Rosy","Doug"],"s":"Closed","cl":"1/9/2025","lo":"","ad":"11/24/2025","aesd":"12/18/2025","m":[125000,150000,150000,0,0,0,0,0,0,0,0,0],"r":425000,"st":"yellow","sy":"Yellow:","n":"starting Jan 12, through end of March; $485k not including Gretchen's fee","in_days":null,"q":[425000,0,0,0]},{"o":"Metlife - Marketing Strategy Execution - ext. 4","c":"Metlife","b":"Corp. Existing Relationships (Current & Returning)","l":["Traci","Rosy","Doug"],"s":"Closed","cl":"3/20/2026","lo":"","ad":"3/9/2026","aesd":"3/9/2026","m":[0,0,0,150000,0,0,0,0,0,0,0,0],"r":150000,"st":"green","sy":"Green: We're in good dialogue with our client to extend our work for another month.","n":"Bridge from previous SOW through apr","in_days":null,"q":[0,150000,0,0]},{"o":"Oberkotter Foundation","c":"Oberkotter Foundation","b":"S.C. Opportunistic/Tactical New BD","l":["Jessica"],"s":"Closed","cl":"5/14/2026","lo":"","ad":"3/6/2026","aesd":"5/8/2026","m":[0,0,0,0,0,0,7500,50000,50000,50000,7500,0],"r":165000,"st":"green","sy":"Green: Active; we sent a proposal and are awaiting their response","n":"","in_days":null,"q":[0,0,107500,57500]},{"o":"Packard Foundation","c":"Packard Foundation","b":"S.C. Opportunistic/Tactical New BD","l":["Shanti"],"s":"Closed","cl":"7/15/2026","lo":"","ad":"6/8/2026","aesd":"7/7/2026","m":[0,0,0,0,0,0,0,15000,25000,25000,25000,0],"r":90000,"st":"green","sy":"Green: Interview with their committee week of 7/13.","n":"","in_days":null,"q":[0,0,40000,50000]},{"o":"Project Aspen","c":"Project Aspen","b":"Private Equity","l":["Leslie"],"s":"Closed","cl":"12/19/2025","lo":"","ad":"12/19/2025","aesd":"12/19/2025","m":[0,0,0,0,0,0,0,0,0,0,0,0],"r":0,"st":"green","sy":"Green: Early and ongoing","n":"","in_days":null,"q":[0,0,0,0]},{"o":"RBF - RPA","c":"RBF","b":"S.C. Long-Standing Relationships","l":["Shanti","Niko","Henry"],"s":"Closed","cl":"1/13/2026","lo":"","ad":"11/11/2025","aesd":"11/13/2025","m":[66667,66667,66666,0,0,0,0,0,0,0,0,0],"r":200000,"st":"green","sy":"Green:","n":"","in_days":null,"q":[200000,0,0,0]},{"o":"Sequoia - Cultural Commitments","c":"Sequoia","b":"S.C. Climate","l":["Shanti","Kara"],"s":"Closed","cl":"3/20/2026","lo":"","ad":"1/16/2026","aesd":"1/16/2026","m":[0,0,0,33333,33333,33334,0,0,0,0,0,0],"r":100000,"st":"green","sy":"Green: We sent a proposal. Joe responded positively late Feb and Shanti will follow up shortly. Approaching mutual intent but waiting on their formal response.","n":"","in_days":null,"q":[0,100000,0,0]},{"o":"Sequoia - ESP","c":"Sequoia","b":"S.C. Climate","l":["Shanti","Kara"],"s":"Closed","cl":"11/18/2025","lo":"","ad":"11/17/2025","aesd":"11/17/2025","m":[50000,0,0,0,0,0,0,0,0,0,0,0],"r":50000,"st":"green","sy":"Green: they asked for a proposal and we shared on.","n":"100K total through end of Jan","in_days":null,"q":[50000,0,0,0]},{"o":"Surdna Foundation","c":"Surdna Foundation","b":"S.C. Opportunistic/Tactical New BD","l":["Shanti","Jessica","Niko"],"s":"Closed","cl":"5/22/2026","lo":"","ad":"4/23/2026","aesd":"","m":[0,0,0,0,32500,73125,73125,73125,73125,0,0,0],"r":325000,"st":"green","sy":"Green: Jessica and Shanti facilitated the board meeting 5/5; now scoping the right size of work.","n":"","in_days":null,"q":[0,105625,219375,0]},{"o":"WES - Extension","c":"WES","b":"S.C. Long-Standing Relationships","l":["Jessica"],"s":"Closed","cl":"12/12/2025","lo":"","ad":"12/11/2025","aesd":"12/11/2025","m":[100000,87500,87500,100000,0,0,0,0,0,0,0,0],"r":375000,"st":"","sy":"","n":"","in_days":null,"q":[275000,100000,0,0]},{"o":"ACLU – Strategy Refresh","c":"ACLU – Strategy Refresh","b":"S.C. Democracy, Pluralism, Belonging","l":["Jessica","Shanti"],"s":"Lost","cl":"","lo":"4/30/2026","ad":"12/11/2025","aesd":"12/19/2025","m":[0,0,0,0,0,0,0,0,0,0,0,0],"r":0,"st":"yellow","sy":"Yellow: We had a strong meeting but with the departure of their senior strategy lead, the work is unlikely. We downgraded it as we're still in dialogue, but probably doing a different thing than our original proposal. The ball is in their court to come back to us.","n":"Additional 200K in 2027","in_days":null,"q":[0,0,0,0],"sdae":"3/31/2026"},{"o":"AMPP - TalentForce ext","c":"AMPP","b":"S.C. Long-Standing Relationships","l":["Shanti","Ashna"],"s":"Lost","cl":"","lo":"5/28/2026","ad":"4/17/2026","aesd":"4/17/2026","m":[0,0,0,0,0,0,0,0,0,0,0,0],"r":0,"st":"green","sy":"Green: Early but active. Not enough information yet for a stronger read beyond continued forward motion.","n":"","in_days":null,"q":[0,0,0,0]},{"o":"Ankura - Business Groups","c":"Ankura","b":"Corp. Existing Relationships (Current & Returning)","l":["Niko"],"s":"Lost","cl":"","lo":"2/13/2026","ad":"3/10/2025","aesd":"","m":[0,0,0,0,0,0,0,0,0,0,0,0],"r":0,"st":"red","sy":"Red: We still haven't seen progress with Ankura. While we’ve advanced our conversations with Angela, established a clear problem statement to address organizational and process alignment across business units, and facilitated an introduction to Joel and Honor, it's still unclear if a project will take shape, and we haven't seen developments since Dec.","n":"","in_days":null,"q":[0,0,0,0]},{"o":"BlackRock - Culture Integration Thought Partnership","c":"BlackRock","b":"Corp. New Business Development","l":["Traci","Niko"],"s":"Lost","cl":"","lo":"2/13/2026","ad":"8/28/2025","aesd":"","m":[0,0,0,0,0,0,0,0,0,0,0,0],"r":0,"st":"yellow","sy":"Yellow: A longer term play but slower than anticipated; we're sharing some ideas with Kate on culture integration to be helpful as things develop.","n":"","in_days":null,"q":[0,0,0,0]},{"o":"Buller Family Foundation","c":"Buller Family Foundation","b":"S.C. Opportunistic/Tactical New BD","l":["Ananya"],"s":"Lost","cl":"","lo":"3/27/2026","ad":"12/2/2025","aesd":"","m":[0,0,0,0,0,0,0,0,0,0,0,0],"r":0,"st":"yellow","sy":"Yellow: Meeting with Thomas scheduled for March 12. Possible \"there there\" and whether price point is in a range we would consider doing fit remains a bit unclear and is something we expect to learn more about in the upcoming conversation.","n":"","in_days":null,"q":[0,0,0,0]},{"o":"Commonwealth Fund","c":"Commonwealth Fund","b":"S.C. Opportunistic/Tactical New BD","l":["Shanti"],"s":"Lost","cl":"","lo":"2/3/2026","ad":"11/10/2025","aesd":"","m":[0,0,0,0,0,0,0,0,0,0,0,0],"r":0,"st":"red","sy":"Red: In the initial conversation with Kathy (the #2) she disengaged a bit when she heard that we aren't executive coaches, but we see opportunity for a bigger play to do team at the top work, though it doesn't look like Kathy does. Likely to drop.","n":"","in_days":null,"q":[0,0,0,0]},{"o":"Democracy Fund - EA strategy extension","c":"Democracy Fund","b":"S.C. Omidyar Universe","l":["Shanti","Elsa"],"s":"Lost","cl":"","lo":"4/17/2026","ad":"3/9/2026","aesd":"3/9/2026","m":[0,0,0,20000,20000,10000,0,0,0,0,0,0],"r":50000,"st":"green","sy":"Green: We need to have a formal conversation with Sanjiv but it is clear that the work will extend.","n":"","in_days":null,"q":[0,50000,0,0]},{"o":"EY Pilot - Elevate","c":"EY Pilot","b":"Corp. MAW Collaboration","l":["Bob","Dominique"],"s":"Lost","cl":"","lo":"5/8/2026","ad":"3/20/2026","aesd":"4/13/2026","m":[0,0,0,0,0,0,0,0,0,0,0,0],"r":0,"st":"green","sy":"Green: There is a clear sponsor and interest in the work, but a recent conversation had to be rescheduled because of technical issues. The team is working to rebook the meeting with the key stakeholders.","n":"","in_days":null,"q":[0,0,0,0]},{"o":"FHN","c":"FHN","b":"S.C. Long-Standing Relationships","l":["Shanti"],"s":"Lost","cl":"","lo":"2/7/0282","ad":"1/6/2026","aesd":"","m":[0,0,0,0,0,0,0,0,0,0,0,0],"r":0,"st":"red","sy":"Red: we reached out to Sarah at the end of Jan and haven't heard back.","n":"","in_days":null,"q":[0,0,0,0]},{"o":"FreeFrom","c":"FreeFrom","b":"S.C. Opportunistic/Tactical New BD","l":["Shanti"],"s":"Lost","cl":"","lo":"2/3/2026","ad":"5/21/2025","aesd":"","m":[0,0,0,0,0,0,0,0,0,0,0,0],"r":0,"st":"green","sy":"Green: The workshops we did in Nov went well and they're interested in further work with us; we haven't prioritized following up, so we're investing the right amount for how we assess this.","n":"","in_days":null,"q":[0,0,0,0]},{"o":"Google – PXO Transformation","c":"Google – PXO Transformation","b":"Corp. New Business Development","l":["Traci","Niko","Rosy"],"s":"Lost","cl":"","lo":"6/22/2026","ad":"4/20/2026","aesd":"5/19/2026","m":[0,0,0,0,0,0,0,0,0,0,0,0],"r":0,"st":"green","sy":"Green: We've shared responses to the proposal questions and are going to discuss with Anthony 6/10/2026","n":"","in_days":null,"q":[0,0,0,0]},{"o":"HopeLab - Extension 3","c":"HopeLab","b":"S.C. Omidyar Universe","l":["Jessica"],"s":"Lost","cl":"","lo":"3/5/2026","ad":"","aesd":"","m":[0,0,0,0,0,0,0,0,0,0,0,0],"r":0,"st":"","sy":"","n":"","in_days":null,"q":[0,0,0,0]},{"o":"Lexipol","c":"Lexipol","b":"Private Equity","l":["Doug","Maya"],"s":"Lost","cl":"","lo":"2/10/2026","ad":"9/26/2025","aesd":"10/17/2025","m":[0,0,155000,160000,0,0,0,0,0,0,0,0],"r":315000,"st":"yellow","sy":"Yellow: While in mutual intent and the work is high priority, with a leadership transition ongoing as we speak (not yet public), it will take a few more weeks to get set on direction.","n":"","in_days":null,"q":[155000,160000,0,0]},{"o":"Lila","c":"Lila","b":"Corp. MAW Collaboration","l":["Niko","Dominique"],"s":"Lost","cl":"","lo":"2/13/2026","ad":"9/11/2024","aesd":"","m":[0,0,0,0,0,0,0,0,0,0,0,0],"r":0,"st":"red","sy":"Red: It has been hard to move from the individual coaching to the org-level work. Bob and Geoff are continuing their coaching, but we're not in regular touch with Lila to explore organizational work. We recently connected with Josh, and it sounds like the org opportunity is slow moving.","n":"","in_days":null,"q":[0,0,0,0]},{"o":"Marsh - Realizing the One Marsh opportunity","c":"Marsh","b":"Corp. Existing Relationships (Current & Returning)","l":["Niko","Traci"],"s":"Lost","cl":"","lo":"4/7/2026","ad":"2/13/2025","aesd":"","m":[0,0,0,0,0,0,0,0,0,0,0,0],"r":0,"st":"yellow","sy":"Yellow: Specific but slow-moving. Memo sent, meeting scheduled for early April.","n":"","in_days":null,"q":[0,0,0,0]},{"o":"Omidyar","c":"Omidyar","b":"S.C. Omidyar Universe","l":["Kara","Shanti"],"s":"Lost","cl":"","lo":"2/3/2026","ad":"1/6/2026","aesd":"","m":[0,0,0,0,0,0,0,0,0,0,0,0],"r":0,"st":"green","sy":"Green: We have a check in with London later today (1/6).","n":"","in_days":null,"q":[0,0,0,0]},{"o":"Project Liberty","c":"Project Liberty","b":"S.C. Democracy, Pluralism, Belonging","l":["Shanti"],"s":"Lost","cl":"","lo":"2/9/2026","ad":"2/5/2026","aesd":"2/5/2026","m":[0,0,0,0,0,0,0,0,0,0,0,0],"r":190000,"st":"green","sy":"Green: Fast moving opportunity that Zia brought us into and we are having a second conversation with the new leader of the Project Liberty Alliance on 2/5.","n":"","in_days":null,"q":[0,0,0,0]},{"o":"Prudential - ITC","c":"Prudential","b":"Corp. New Business Development","l":["Niko"],"s":"Lost","cl":"","lo":"12/2/2025","ad":"12/17/2024","aesd":"7/28/2025","m":[0,0,0,0,0,0,0,0,0,0,0,0],"r":0,"st":"red","sy":"Red: We’re exploring several workstreams with Prudential, including one focused on AI and culture. Some traction has been lost here, and we don't have a clear next step.","n":"","in_days":null,"q":[0,0,0,0]},{"o":"Resetting the Table","c":"Resetting the Table","b":"S.C. Democracy, Pluralism, Belonging","l":["Shanti"],"s":"Lost","cl":"","lo":"3/4/2026","ad":"6/23/2025","aesd":"7/11/2025","m":[0,0,0,0,0,0,0,0,0,0,0,0],"r":0,"st":"yellow","sy":"Yellow: We did some working sessions in the gift economy to better understand what they need. The leader has had health issues which has pushed back their strategic planning process and therefore our exploration with them; we'll come back to it in the new year.","n":"","in_days":null,"q":[0,0,0,0],"sdae":"11/3/2025"},{"o":"Salesforce - Retainer","c":"Salesforce","b":"Corp. Existing Relationships (Current & Returning)","l":["Traci","Ashna"],"s":"Lost","cl":"","lo":"1/15/2026","ad":"10/24/2025","aesd":"10/30/2025","m":[0,0,0,0,0,0,0,0,0,0,0,0],"r":0,"st":"yellow","sy":"Yellow: we adjusted our initial proposal and Relina and Traci are meeting 12/8 to discuss.","n":"","in_days":null,"q":[0,0,0,0]},{"o":"SED Fund","c":"SED Fund","b":"S.C. Climate","l":["Kara"],"s":"Lost","cl":"","lo":"5/1/2026","ad":"4/1/2026","aesd":"","m":[0,0,0,0,0,0,0,0,0,0,0,0],"r":0,"st":"green","sy":"Green: Active but small opportunity as Kara and the team gather funder perspectives and clarify whether this is strategically worth our investment; next step is follow-up on Kara’s outreach to decide if and how to proceed, including whether to seek external funding.","n":"","in_days":null,"q":[0,0,0,0]},{"o":"Trottier Family Foundation","c":"Trottier Family Foundation","b":"S.C. Climate","l":["Kara","Shanti"],"s":"Lost","cl":"","lo":"1/8/2026","ad":"12/1/2025","aesd":"12/8/2025","m":[0,0,0,0,0,0,0,0,0,0,0,0],"r":0,"st":"green","sy":"Green: Early but green based on warm referral. We have a first call with their team on 12/8.","n":"","in_days":null,"q":[0,0,0,0]},{"o":"Cisco 03 - SaO Leadership & Org - Marco Phase 4 (extension)","c":"Cisco","b":"Corp. Existing Relationships (Current & Returning)","l":["Traci","Maya"],"s":"Mutual Intent","cl":"8/17/2026","lo":"","ad":"8/11/2026","aesd":"8/11/2026","m":[0,0,0,0,0,0,0,0,130000,130000,130000,0],"r":390000,"st":"green","sy":"Green: Likely to close.","n":"","in_days":null,"q":[0,0,130000,260000]},{"o":"Cisco 05 - Silicon One Cross-Functional Impact","c":"Cisco","b":"Corp. Existing Relationships (Current & Returning)","l":["Traci","Maya"],"s":"Mutual Intent","cl":"8/5/2026","lo":"","ad":"7/24/2026","aesd":"7/24/2026","m":[0,0,0,0,0,0,0,130000,130000,130000,0,0],"r":390000,"st":"green","sy":"Green: pull from the client.","n":"","in_days":null,"q":[0,0,260000,130000]},{"o":"Climate Lead Council","c":"Climate Lead Council","b":"S.C. Climate","l":["Kara"],"s":"Mutual Intent","cl":"8/7/2026","lo":"","ad":"8/3/2026","aesd":"8/3/2026","m":[0,0,0,0,0,0,0,5000,5000,5000,5000,0],"r":20000,"st":"green","sy":"Green: good movement on this, but still early.","n":"","in_days":null,"q":[0,0,10000,10000]},{"o":"RBF - AI","c":"RBF","b":"S.C. Long-Standing Relationships","l":["Niko","David"],"s":"Mutual Intent","cl":"8/3/2026","lo":"","ad":"4/2/2026","aesd":"7/15/2026","m":[0,0,0,0,0,0,0,50000,50000,0,0,0],"r":100000,"st":"green","sy":"Green: Has kicked off ahead of paperwork","n":"","in_days":null,"q":[0,0,100000,0]},{"o":"Stanford Health Care","c":"Stanford Health Care","b":"Corp. MAW Collaboration","l":["Lisa","Traci"],"s":"Mutual Intent","cl":"7/21/2026","lo":"","ad":"7/9/2026","aesd":"7/20/2026","m":[0,0,0,0,0,0,3600,14550,14550,7300,0,0],"r":40000,"st":"","sy":"","n":"","in_days":null,"q":[0,0,32700,7300]},{"o":"EY – WestPac","c":"EY – WestPac","b":"Corp. MAW Collaboration","l":["Bob","Dominique","Traci"],"s":"Serious Dialogue","cl":"","lo":"","ad":"3/20/2026","aesd":"4/13/2026","m":[0,0,0,0,0,0,0,0,0,0,0,0],"r":0,"st":"green","sy":"Green: There is interest in Minds at Works ideas and receptivity to making this a bigger transformation initiative","n":"","in_days":153,"q":[0,0,0,0]},{"o":"Ford Foundation - Extension","c":"Ford Foundation","b":"S.C. Emergent/New Constellations","l":["Jessica"],"s":"Serious Dialogue","cl":"","lo":"","ad":"6/27/2026","aesd":"7/27/2026","m":[0,0,0,0,0,0,0,28000,28000,28000,133300,133300],"r":350600,"st":"green","sy":"Green: Expected to land","n":"","in_days":54,"q":[0,0,56000,294600]},{"o":"Intermediary Ed - Extension 1","c":"Intermediary Ed","b":"S.C. Opportunistic/Tactical New BD","l":["Jessica"],"s":"Serious Dialogue","cl":"","lo":"","ad":"8/7/2026","aesd":"8/7/2026","m":[0,0,0,0,0,0,0,0,0,0,0,0],"r":150000,"st":"green","sy":"Green: they have indicated they want to extend for September and October, and in discussions that has advanced to early 2027.","n":"","in_days":13,"q":[0,0,0,0]},{"o":"Marsh - Marsh Risk Change Plan","c":"Marsh","b":"Corp. Existing Relationships (Current & Returning)","l":["Niko","Traci"],"s":"Serious Dialogue","cl":"","lo":"","ad":"7/9/2026","aesd":"7/16/2026","m":[0,0,0,0,0,0,0,0,0,0,0,0],"r":0,"st":"green","sy":"Green: While the dialogue had slowed as compared to early fast momentum, we've received good intel on what's going on internally on their end, and are now scheduled with Nick and Kelly for early September.","n":"","in_days":42,"q":[0,0,0,0]},{"o":"Sequoia – Org Evolution","c":"Sequoia – Org Evolution","b":"S.C. Climate","l":["Shanti","Kara"],"s":"Serious Dialogue","cl":"","lo":"","ad":"7/31/2026","aesd":"8/18/2026","m":[0,0,0,0,0,0,0,0,0,0,0,0],"r":190000,"st":"green","sy":"Green: while we're not sure if they'll necessarily go for it, we've been in solid dialogue with them.","n":"","in_days":20,"q":[0,0,0,0]},{"o":"Agog","c":"Agog","b":"S.C. Opportunistic/Tactical New BD","l":["Jessica"],"s":"Early Explorations","cl":"","lo":"","ad":"","aesd":"","m":[0,0,0,0,0,0,0,0,0,0,0,0],"r":0,"st":"","sy":"","n":"","in_days":null,"q":[0,0,0,0]},{"o":"Bloomberg","c":"Bloomberg","b":"S.C. Opportunistic/Tactical New BD","l":["Jessica"],"s":"Early Explorations","cl":"","lo":"","ad":"","aesd":"","m":[0,0,0,0,0,0,0,0,0,0,0,0],"r":0,"st":"","sy":"","n":"","in_days":null,"q":[0,0,0,0]},{"o":"EY - Telstra","c":"EY","b":"Corp. MAW Collaboration","l":["Bob","Traci","Lisa","Dominique"],"s":"Early Explorations","cl":"","lo":"","ad":"","aesd":"","m":[0,0,0,0,0,0,0,0,0,0,0,0],"r":0,"st":"red","sy":"Red: this seems to have stalled without team clarity on what we are currently shaping and how.","n":"","in_days":null,"q":[0,0,0,0]},{"o":"Grant Thornton","c":"Grant Thornton","b":"Corp. Existing Relationships (Current & Returning)","l":["Niko","Traci"],"s":"Early Explorations","cl":"","lo":"","ad":"","aesd":"","m":[0,0,0,0,0,0,0,0,0,0,0,0],"r":0,"st":"","sy":"","n":"","in_days":null,"q":[0,0,0,0]},{"o":"Lenovo","c":"Lenovo","b":"Corp. MAW Collaboration","l":["Niko","Dominique"],"s":"Early Explorations","cl":"","lo":"","ad":"","aesd":"","m":[0,0,0,0,0,0,0,0,0,0,0,0],"r":0,"st":"yellow","sy":"Yellow: The Boston meeting was canceled due to weather. Sarah and Haley are actively working to reschedule as of this week. Dominique is following up with Haley on the plan forward.","n":"","in_days":null,"q":[0,0,0,0]},{"o":"Metlife - AI","c":"Metlife","b":"Corp. Existing Relationships (Current & Returning)","l":["Traci","Niko"],"s":"Early Explorations","cl":"","lo":"","ad":"","aesd":"","m":[0,0,0,0,0,0,0,0,0,0,0,0],"r":0,"st":"yellow","sy":"Yellow: This is early, and we're approaching it as an opportunity to increase our surface area at MetLife. We need to mutually sharpen our path forward to upgrade this to Green.","n":"","in_days":null,"q":[0,0,0,0]},{"o":"Scale Up Trinidad + Tobago","c":"Scale Up Trinidad + Tobago","b":"S.C. Opportunistic/Tactical New BD","l":["Jessica"],"s":"Early Explorations","cl":"","lo":"","ad":"","aesd":"","m":[0,0,0,0,0,0,0,0,0,0,0,0],"r":0,"st":"","sy":"","n":"","in_days":null,"q":[0,0,0,0]},{"o":"SJN Partnership","c":"SJN Partnership","b":"S.C. Opportunistic/Tactical New BD","l":["Kara"],"s":"Early Explorations","cl":"","lo":"","ad":"","aesd":"","m":[0,0,0,0,0,0,0,0,0,0,0,0],"r":0,"st":"","sy":"","n":"","in_days":null,"q":[0,0,0,0]},{"o":"Sunrise Project","c":"Sunrise Project","b":"S.C. Climate","l":["Shanti","Kara"],"s":"Early Explorations","cl":"","lo":"","ad":"","aesd":"","m":[0,0,0,0,0,0,0,0,0,0,0,0],"r":0,"st":"","sy":"","n":"","in_days":null,"q":[0,0,0,0]},{"o":"Treville Capital","c":"Treville Capital","b":"Corp. New Business Development","l":["Niko"],"s":"Early Explorations","cl":"","lo":"","ad":"","aesd":"","m":[0,0,0,0,0,0,0,0,0,0,0,0],"r":0,"st":"yellow","sy":"Yellow: Positive conversations, but slow-moving without clear signs of commercial viability. Last email was from Niko to Alex Yagoda on August 4th, with no response yet. The relationship may be a possible future opportunity but we don't have something active to pick up further here.","n":"","in_days":null,"q":[0,0,0,0]}],"matrix":{"Corp. Existing Relationships (Current & Returning)":[345000,370000,380000,380000,330000,330000,330000,260000,260000,260000,130000,0],"Corp. MAW Collaboration":[15000,15000,15000,14167,14167,14166,22600,33550,33550,7300,0,0],"Corp. New Business Development":[0,0,32500,162500,130000,180000,0,0,0,0,0,0],"Private Equity":[150000,170000,140000,175000,200000,190000,0,0,0,0,0,0],"S.C. Democracy, Pluralism, Belonging":[0,0,0,0,0,0,0,0,0,0,0,0],"S.C. Climate":[66667,100000,100000,133334,49999,50000,0,5000,5000,5000,5000,0],"S.C. Omidyar Universe":[33333,33333,33334,13334,53334,23333,62333,91333,91333,20000,20000,20000],"S.C. Emergent/New Constellations":[0,0,0,0,97500,97500,97500,97500,97500,97500,0,0],"S.C. Long-Standing Relationships":[189667,252417,284916,180250,17750,17750,0,50000,50000,0,0,0],"S.C. Opportunistic/Tactical New BD":[40000,0,0,0,32500,73125,95625,153125,229375,156250,113750,81250]},"monthly_booked":[839667,940750,985750,1058585,925250,975874,608058,690508,766758,546050,268750,101250],"bucket_plan":[["Corp. Existing Relationships (Current & Returning)",2500000,3375000],["Corp. MAW Collaboration",2000000,184500],["Corp. New Business Development",2000000,505000],["Private Equity",2500000,1025000],["S.C. Democracy, Pluralism, Belonging",700000,0],["S.C. Climate",900000,520000],["S.C. Omidyar Universe",400000,495000],["S.C. Emergent/New Constellations",400000,585000],["S.C. Long-Standing Relationships",900000,1042750],["S.C. Opportunistic/Tactical New BD",700000,975000]],"topline":{"plan":13000000,"booked":8707250,"sd":690600,"total":9397850,"booked_gap":4292750,"total_gap":3602150,"corp_pe":[9000000,5089500],"sc":[4000000,3617750]},"q3":{"targets":{"Jul":700000,"Aug":800000,"Sep":1100000},"target_total":2600000,"booked":{"Jul":608058,"Aug":690508,"Sep":766758},"booked_total":2065324,"floor":3000000},"activity":{"closed":[4,900000],"new_sd":[4,750000],"lost":[0,0]},"period":"Aug 1 - Aug 20, 2026","period_start":"2026-08-01","period_end":"2026-08-20","monthly_targets":[866667,866667,866667,1100000,1100000,1100000,700000,800000,1100000,1200000,1200000,1200000],"target_note":"Q3 targets (Jul $700K / Aug $800K / Sep $1.1M) are from the quarterly plan; Q1 ($2.6M), Q2 ($3.3M) and Q4 ($3.6M) quarterly targets are split evenly across their months."};
+(function(){
+"use strict";
+const D=DATA, deals=D.deals, TL=D.topline, TGT=D.monthly_targets;
+const MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const BOOKED=new Set(['Closed','Mutual Intent']);
+const OPEN=new Set(['Serious Dialogue','Active Exploratory','Early Explorations','Longer-term Explorations']);
+const CORP=new Set(['Corp. Existing Relationships (Current & Returning)','Corp. MAW Collaboration','Corp. New Business Development','Private Equity']);
+const fmt=n=>'$'+Math.round(n).toLocaleString('en-US');
+const fmtM=n=>{const a=Math.abs(n);if(a>=1e6)return '$'+(n/1e6).toFixed(2)+'M';if(a>=1e3)return '$'+Math.round(n/1e3)+'K';return '$'+Math.round(n);};
+const short=n=>n.replace(' (Current & Returning)','').replace('S.C.','SC').replace('Corp.','Corp').replace('Democracy, Pluralism, Belonging','Democracy/Plur.').replace('Emergent/New Constellations','Emergent/New Const.').replace('Opportunistic/Tactical New BD','Opportunistic/Tactical');
+const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function pd(s){if(!s)return null;const m=String(s).trim().match(/^(\d{1,2})\/(\d{1,2})\/(\d{2,4})$/);if(!m)return null;let y=+m[3];if(y<100)y+=2000;return new Date(y,+m[1]-1,+m[2]);}
+function entryDate(d){const a=pd(d.ad),s=pd(d.aesd);if(a&&s)return a<s?a:s;return a||s||null;}
+deals.forEach((d,i)=>{d.__k=i;d._cl=pd(d.cl);d._lo=pd(d.lo);d._entry=entryDate(d);d._pd=d._cl||d._lo||pd(d.aesd)||pd(d.ad)||null;});
+
+const bucketOrder=D.bucket_plan.map(x=>x[0]);
+const buckets=[...new Set(deals.map(d=>d.b))].filter(Boolean).sort((a,b)=>bucketOrder.indexOf(a)-bucketOrder.indexOf(b));
+const stageOrder=['Closed','Mutual Intent','Serious Dialogue','Active Exploratory','Early Explorations','Longer-term Explorations','Lost'];
+const stages=stageOrder.filter(s=>deals.some(d=>d.s===s));
+const leadCount={};deals.forEach(d=>d.l.forEach(l=>leadCount[l]=(leadCount[l]||0)+1));
+const leads=Object.keys(leadCount).sort((a,b)=>leadCount[b]-leadCount[a]||a.localeCompare(b));
+const BUCKET_COLORS=['#3f5a76','#5b7fa6','#8aa6c2','#b6c6d8','#2f6f5e','#3f8a72','#5aa88f','#8ac4b1','#c39114','#dbb45a'];
+function stageClass(s){return {'Mutual Intent':'Mutual','Serious Dialogue':'Serious','Active Exploratory':'Active','Early Explorations':'Pre','Longer-term Explorations':'Account'}[s]||s;}
+
+/* ---- TABS ---- */
+document.querySelectorAll('#tabs button[data-tab]').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('#tabs button[data-tab]').forEach(x=>x.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  b.classList.add('active');document.getElementById(b.dataset.tab).classList.add('active');
+  window.scrollTo(0,0);
+}));
+document.addEventListener('click',()=>document.querySelectorAll('.ms-menu').forEach(m=>m.classList.remove('open')));
+
+/* ---- DATE-RANGE INCLUSION (new semantics) ----
+ include if live/relevant during [S,E]:
+  - booked (Closed/MI): exclude if won strictly before S; else include
+  - lost: remain visible if entered by E
+  - open (AE/SD/Pre/Account): include if entered by E (was in pipeline during/before range) */
+function inRange(d,S,E){
+  if(!S&&!E)return true;
+  const s=S?new Date(S):null, e=E?new Date(E):null;
+  if(BOOKED.has(d.s)){ if(s&&d._cl&&d._cl<s)return false; return true; }
+  if(d.s==='Lost'){ if(s&&d._lo&&d._lo<s)return false; if(e&&d._entry&&d._entry>e)return false; return true; }
+  if(e&&d._entry&&d._entry>e)return false;
+  return true;
+}
+function qMatch(d,qi){if(d.q[qi]>0)return true;const noAcc=d.q.every(x=>x===0);if(noAcc&&d._pd&&d._pd.getFullYear()===2026)return Math.floor(d._pd.getMonth()/3)===qi;return false;}
+
+/* ---- FILTER FACTORY ---- */
+function makeFilter(pfx,onChange,stageList){
+  const st={bucket:new Set(),stage:new Set(),quarter:new Set(),lead:new Set(),from:'',to:''};
+  function buildMulti(mount,items,key,labelFn,countFn){
+    const box=document.getElementById(mount);
+    const btn=document.createElement('button');btn.className='ms-btn';btn.type='button';
+    const menu=document.createElement('div');menu.className='ms-menu';
+    items.forEach(it=>{const l=document.createElement('label');
+      const cb=document.createElement('input');cb.type='checkbox';cb.value=it;
+      cb.addEventListener('change',()=>{cb.checked?st[key].add(it):st[key].delete(it);sync();onChange();});
+      const sp=document.createElement('span');sp.textContent=labelFn(it);
+      const ct=document.createElement('span');ct.className='ct';if(countFn)ct.textContent=countFn(it);
+      l.appendChild(cb);l.appendChild(sp);if(countFn)l.appendChild(ct);menu.appendChild(l);});
+    box.appendChild(btn);box.appendChild(menu);
+    function sync(){const n=st[key].size;btn.textContent=n===0?('All '+key+'s'):(n+' selected');btn.classList.toggle('has',n>0);menu.querySelectorAll('input').forEach(cb=>cb.checked=st[key].has(cb.value));}
+    btn.addEventListener('click',ev=>{ev.stopPropagation();document.querySelectorAll('.ms-menu').forEach(m=>{if(m!==menu)m.classList.remove('open')});menu.classList.toggle('open');});
+    sync();box._sync=sync;return box;
+  }
+  const bB=buildMulti(pfx+'Bucket',buckets,'bucket',short,b=>deals.filter(d=>d.b===b).length);
+  const bS=buildMulti(pfx+'Stage',(stageList&&stageList.filter(s=>deals.some(d=>d.s===s)))||stages,'stage',s=>s,s=>deals.filter(d=>d.s===s).length);
+  const bQ=buildMulti(pfx+'Quarter',['0','1','2','3'],'quarter',q=>'Q'+(+q+1)+' 2026');
+  const bL=buildMulti(pfx+'Lead',leads,'lead',l=>l,l=>leadCount[l]);
+  document.getElementById(pfx+'From').addEventListener('change',e=>{st.from=e.target.value;onChange();});
+  document.getElementById(pfx+'To').addEventListener('change',e=>{st.to=e.target.value;onChange();});
+  document.getElementById(pfx+'Reset').addEventListener('click',()=>{
+    ['bucket','stage','quarter','lead'].forEach(k=>st[k].clear());st.from='';st.to='';
+    [bB,bS,bQ,bL].forEach(b=>b._sync());document.getElementById(pfx+'From').value='';document.getElementById(pfx+'To').value='';onChange();});
+  st.any=()=>st.bucket.size||st.stage.size||st.quarter.size||st.lead.size||st.from||st.to;
+  st.match=d=>{
+    if(st.bucket.size&&!st.bucket.has(d.b))return false;
+    if(st.stage.size&&!st.stage.has(d.s))return false;
+    if(st.lead.size&&!d.l.some(l=>st.lead.has(l)))return false;
+    if(st.quarter.size&&![...st.quarter].some(q=>qMatch(d,+q)))return false;
+    if(!inRange(d,st.from,st.to))return false;
+    return true;
+  };
+  st.updateReset=()=>{document.getElementById(pfx+'Reset').disabled=!st.any();};
+  return st;
+}
+const FILT_HELP='<b>Date range</b> includes any opportunity that was live (Active Exploratory or Serious Dialogue) during the range — even if it didn\u2019t move — plus deals won or lost within the range. Deals won <em>or lost</em> before the range are excluded. Bucket / stage / quarter / lead each allow multiple selections.';
+
+/* ================= SHARED STACKED BAR CHART ================= */
+// series: [{name,color,data:[12]}]; targets: optional [12];
+// tipFn(monthIndex, seriesIndex|null)->html  (seriesIndex set when hovering a specific segment)
+function stackedBars(mount,tipEl,series,targets,tipFn,labels){
+  labels=labels||MON;const N=labels.length;
+  const W=760,H=300,padL=52,padR=14,padT=14,padB=32;
+  const iw=W-padL-padR,ih=H-padT-padB,bw=iw/N,gap=bw*0.24;
+  let maxV=0;for(let i=0;i<N;i++){let s=0;series.forEach(se=>s+=se.data[i]);maxV=Math.max(maxV,s);}
+  if(targets)for(let i=0;i<N;i++)maxV=Math.max(maxV,targets[i]);
+  maxV=maxV*1.1||1;
+  const yOf=v=>padT+ih-(v/maxV)*ih;
+  let svg='<svg viewBox="0 0 '+W+' '+H+'" role="img">';
+  svg+='<g class="axis">';for(let g=0;g<=4;g++){const gv=maxV*g/4,y=yOf(gv);svg+='<line x1="'+padL+'" y1="'+y+'" x2="'+(W-padR)+'" y2="'+y+'"/><text x="'+(padL-6)+'" y="'+(y+3)+'" text-anchor="end">'+fmtM(gv)+'</text>';}svg+='</g>';
+  // pass 1: background hover-gap rects (whole-month fallback), drawn first so segments sit on top
+  for(let i=0;i<N;i++){svg+='<rect class="rgap" data-i="'+i+'" x="'+(padL+bw*i)+'" y="'+padT+'" width="'+bw+'" height="'+ih+'" fill="transparent"/>';}
+  // pass 2: segments, targets, labels on top
+  for(let i=0;i<N;i++){
+    let yb=padT+ih;const x=padL+bw*i+gap/2,w=bw-gap;
+    series.forEach((se,si)=>{const v=se.data[i];if(v>0.5){const h=(v/maxV)*ih;yb-=h;svg+='<rect class="seg" data-i="'+i+'" data-s="'+si+'" x="'+x.toFixed(1)+'" y="'+yb.toFixed(1)+'" width="'+w.toFixed(1)+'" height="'+h.toFixed(1)+'" fill="'+se.color+'"/>';}});
+    if(targets&&targets[i]){const ty=yOf(targets[i]);svg+='<line x1="'+(x-1)+'" y1="'+ty.toFixed(1)+'" x2="'+(x+w+1)+'" y2="'+ty.toFixed(1)+'" stroke="var(--under)" stroke-width="1.5" stroke-dasharray="4 3" pointer-events="none"/>';}
+    svg+='<text class="axis" x="'+(x+w/2)+'" y="'+(H-padB+16)+'" text-anchor="middle" style="fill:var(--faint);font-size:10px" pointer-events="none">'+labels[i]+'</text>';
+  }
+  svg+='</svg>';
+  mount.innerHTML=svg;
+  function place(ev,html){if(!html){tipEl.classList.remove('show');return;}tipEl.innerHTML=html;tipEl.classList.add('show');const box=mount.getBoundingClientRect();tipEl.style.left=(ev.clientX-box.left)+'px';tipEl.style.top=(ev.clientY-box.top-12)+'px';}
+  if(tipEl&&tipFn){
+    // segment-specific hover takes priority
+    mount.querySelectorAll('.seg').forEach(r=>{
+      r.addEventListener('mousemove',ev=>{ev.stopPropagation();place(ev,tipFn(+r.dataset.i,+r.dataset.s));});
+      r.addEventListener('mouseleave',()=>tipEl.classList.remove('show'));
+    });
+    // fallback: whole-month hover (used when tipFn handles null seriesIndex)
+    mount.querySelectorAll('.rgap').forEach(r=>{
+      r.addEventListener('mousemove',ev=>place(ev,tipFn(+r.dataset.i,null)));
+      r.addEventListener('mouseleave',()=>tipEl.classList.remove('show'));
+    });
+  }
+}
+// simple grouped bars for movement dashboard
+function groupedBars(mount,tipEl,labels,series,fmtY,tipFn,diverge){
+  const N=labels.length,K=series.length;
+  const W=520,H=250,padL=38,padR=12,padT=12,padB=28;
+  const iw=W-padL-padR,ih=H-padT-padB,gw=iw/N,gap=gw*0.22,innerW=gw-gap,bw=innerW/K;
+  let maxV=0,minV=0;for(let i=0;i<N;i++)series.forEach(se=>{maxV=Math.max(maxV,se.data[i]);minV=Math.min(minV,se.data[i]);});
+  maxV=maxV||1;const span=maxV-(diverge?minV:0)||1;
+  const zeroY=diverge?padT+ih-((0-minV)/span)*ih:padT+ih;
+  const yOf=v=>padT+ih-((v-(diverge?minV:0))/span)*ih;
+  let svg='<svg viewBox="0 0 '+W+' '+H+'" role="img"><g class="axis">';
+  const ticks=diverge?[minV,0,maxV]:[0,maxV/2,maxV];
+  ticks.forEach(t=>{const y=yOf(t);svg+='<line x1="'+padL+'" y1="'+y.toFixed(1)+'" x2="'+(W-padR)+'" y2="'+y.toFixed(1)+'"/><text x="'+(padL-5)+'" y="'+(y+3)+'" text-anchor="end">'+(fmtY?fmtY(t):Math.round(t))+'</text>';});
+  svg+='</g>';
+  for(let i=0;i<N;i++){const gx=padL+gw*i+gap/2;
+    series.forEach((se,k)=>{const v=se.data[i];const x=gx+bw*k;if(v!==0){const y0=yOf(Math.max(v,0)),y1=yOf(Math.min(v,0));svg+='<rect class="seg" data-i="'+i+'" data-s="'+k+'" x="'+x.toFixed(1)+'" y="'+y0.toFixed(1)+'" width="'+(bw-1).toFixed(1)+'" height="'+Math.max(1,y1-y0).toFixed(1)+'" fill="'+se.color+'"/>';if(se.showLabel&&v>0)svg+='<text class="bar-label" x="'+(x+(bw-1)/2)+'" y="'+(y0-4)+'" text-anchor="middle" style="font-size:9px">'+fmtY(v)+'</text>';}});
+    svg+='<text class="axis" x="'+(gx+innerW/2)+'" y="'+(H-padB+15)+'" text-anchor="middle" style="fill:var(--faint);font-size:9.5px">'+esc(labels[i])+'</text>';
+    svg+='<rect class="rgap" data-i="'+i+'" x="'+(padL+gw*i)+'" y="'+padT+'" width="'+gw+'" height="'+ih+'" fill="transparent"/>';
+  }
+  svg+='</svg>';mount.innerHTML=svg;
+  if(tipEl&&tipFn){function place(ev,html){if(!html){tipEl.classList.remove('show');return;}tipEl.innerHTML=html;tipEl.classList.add('show');const box=mount.getBoundingClientRect();tipEl.style.left=(ev.clientX-box.left)+'px';tipEl.style.top=(ev.clientY-box.top-12)+'px';}
+    mount.querySelectorAll('.rgap').forEach(r=>{r.addEventListener('mousemove',ev=>place(ev,tipFn(+r.dataset.i)));r.addEventListener('mouseleave',()=>tipEl.classList.remove('show'));});}
+}
+// stacked (single group per period) for open-pipeline snapshots
+function stackedSnap(mount,tipEl,labels,series,tipFn){
+  const N=labels.length;const W=520,H=250,padL=38,padR=12,padT=12,padB=28;
+  const iw=W-padL-padR,ih=H-padT-padB,bw=iw/N,gap=bw*0.4;
+  let maxV=0;for(let i=0;i<N;i++){let s=0;series.forEach(se=>s+=se.data[i]);maxV=Math.max(maxV,s);}maxV=maxV||1;
+  const yOf=v=>padT+ih-(v/maxV)*ih;
+  let svg='<svg viewBox="0 0 '+W+' '+H+'" role="img"><g class="axis">';
+  [0,maxV/2,maxV].forEach(t=>{const y=yOf(t);svg+='<line x1="'+padL+'" y1="'+y.toFixed(1)+'" x2="'+(W-padR)+'" y2="'+y.toFixed(1)+'"/><text x="'+(padL-5)+'" y="'+(y+3)+'" text-anchor="end">'+Math.round(t)+'</text>';});svg+='</g>';
+  for(let i=0;i<N;i++){let yb=padT+ih;const x=padL+bw*i+gap/2,w=bw-gap;
+    series.forEach(se=>{const v=se.data[i];if(v>0){const h=(v/maxV)*ih;yb-=h;svg+='<rect x="'+x.toFixed(1)+'" y="'+yb.toFixed(1)+'" width="'+w.toFixed(1)+'" height="'+h.toFixed(1)+'" fill="'+se.color+'"/>';}});
+    svg+='<text class="axis" x="'+(x+w/2)+'" y="'+(H-padB+15)+'" text-anchor="middle" style="fill:var(--faint);font-size:9.5px">'+esc(labels[i])+'</text>';
+    svg+='<rect class="rgap" data-i="'+i+'" x="'+(padL+bw*i)+'" y="'+padT+'" width="'+bw+'" height="'+ih+'" fill="transparent"/>';
+  }
+  svg+='</svg>';mount.innerHTML=svg;
+  if(tipEl&&tipFn){function place(ev,html){if(!html){tipEl.classList.remove('show');return;}tipEl.innerHTML=html;tipEl.classList.add('show');const box=mount.getBoundingClientRect();tipEl.style.left=(ev.clientX-box.left)+'px';tipEl.style.top=(ev.clientY-box.top-12)+'px';}
+    mount.querySelectorAll('.rgap').forEach(r=>{r.addEventListener('mousemove',ev=>place(ev,tipFn(+r.dataset.i)));r.addEventListener('mouseleave',()=>tipEl.classList.remove('show'));});}
+}
+function clientTip(monthIdx,rows,label){ // rows:[[client,amt]]
+  const tot=rows.reduce((a,b)=>a+b[1],0);if(tot<=0)return '';
+  rows=rows.filter(r=>r[1]>0).sort((a,b)=>b[1]-a[1]);
+  let h='<div class="tt"><span>'+MON[monthIdx]+(label?' · '+label:'')+'</span><span>'+fmt(tot)+'</span></div>';
+  rows.slice(0,8).forEach(r=>h+='<div class="tr"><span>'+esc(r[0])+'</span><span>'+fmt(r[1])+'</span></div>');
+  if(rows.length>8)h+='<div class="more">+ '+(rows.length-8)+' more</div>';
+  return h;
+}
+
+/* ================= ATTAINMENT (tab1) ================= */
+const SCALE=1.6;
+function renderAtt(){
+  const grid=document.getElementById('att-grid');grid.innerHTML='';
+  [['Corporate & PE',b=>CORP.has(b),TL.corp_pe],['Systems Change',b=>!CORP.has(b),TL.sc]].forEach(([g,test,seg])=>{
+    const gh=document.createElement('div');gh.className='seg-head';
+    gh.innerHTML='<span class="sn">'+g+'</span><span class="sv"><b>'+fmtM(seg[1])+'</b> / '+fmtM(seg[0])+' · '+Math.round(seg[1]/seg[0]*100)+'%</span>';grid.appendChild(gh);
+    D.bucket_plan.filter(x=>test(x[0])).forEach(([name,plan,booked])=>{
+      const pct=plan?booked/plan:0,over=pct>=1,w=Math.min(pct/SCALE,1)*100,pp=(1/SCALE)*100;
+      const row=document.createElement('div');row.className='arow';
+      row.innerHTML='<div class="top"><span class="nm">'+esc(short(name))+'</span><span class="vv"><b>'+fmtM(booked)+'</b> / '+fmtM(plan)+'</span></div>'+
+        '<div class="track"><div class="fill'+(over?' over':'')+'" style="width:'+w+'%"></div><div class="planline" style="left:'+pp+'%"></div></div>'+
+        '<div class="pctlab"><b class="'+(over?'over':'under')+'">'+Math.round(pct*100)+'%</b> of plan</div>';grid.appendChild(row);});
+  });
+  const note=document.createElement('div');note.className='att-note';
+  note.innerHTML='<span class="k"><span class="sw" style="background:var(--over)"></span> over plan</span><span class="k"><span class="sw" style="background:var(--under)"></span> under plan</span><span class="k"><span class="planmark"></span> 100% of plan</span>';grid.appendChild(note);
+  document.getElementById('att-meta').textContent='booked '+fmtM(TL.booked)+' of '+fmtM(TL.plan)+' · '+Math.round(TL.booked/TL.plan*100)+'%';
+}
+
+/* ================= MOVEMENT DASHBOARD (tab1) ================= */
+let mvRange='ytd';
+const CUR_MONTH=7; // Aug (0-indexed) = latest month with data
+const C_BLUE='#3b6fe0',C_GREEN='#25936a',C_ORANGE='#e07a3b',C_RED='#d24b3e';
+// custom month dropdowns
+(function(){const f=document.getElementById('mvFrom'),t=document.getElementById('mvTo');
+  MON.forEach((m,i)=>{f.innerHTML+='<option value="'+i+'">'+m+'</option>';t.innerHTML+='<option value="'+i+'">'+m+'</option>';});
+  f.value='3';t.value='5';
+  f.addEventListener('change',()=>{mvRange='custom';syncPills();renderMovement();});
+  t.addEventListener('change',()=>{mvRange='custom';syncPills();renderMovement();});
+})();
+function syncPills(){document.querySelectorAll('#mvPills .pill').forEach(p=>p.classList.toggle('on',p.dataset.r===mvRange));}
+document.querySelectorAll('#mvPills .pill').forEach(p=>p.addEventListener('click',()=>{mvRange=p.dataset.r;syncPills();renderMovement();}));
+function rangeMonths(){
+  if(mvRange==='ytd')return [0,CUR_MONTH];
+  if(mvRange==='q1')return [0,2];if(mvRange==='q2')return [3,5];if(mvRange==='q3')return [6,8];if(mvRange==='q4')return [9,11];
+  const a=+document.getElementById('mvFrom').value,b=+document.getElementById('mvTo').value;return [Math.min(a,b),Math.max(a,b)];
+}
+const inM=(dt,a,b)=>dt&&dt.getFullYear()===2026&&dt.getMonth()>=a&&dt.getMonth()<=b;
+function renderMovement(){
+  const [a,b]=rangeMonths();const months=[];for(let m=a;m<=b;m++)months.push(m);
+  const lab=months.map(m=>MON[m]);
+  // ---- scorecard ----
+  const created=deals.filter(d=>inM(pd(d.ad),a,b));
+  const adv=deals.filter(d=>inM(pd(d.aesd),a,b));
+  const closed=deals.filter(d=>BOOKED.has(d.s)&&inM(d._cl,a,b));
+  const lost=deals.filter(d=>d.s==='Lost'&&inM(d._lo,a,b));
+  const lostUnv=lost.filter(d=>!d.r).length;
+  const sumR=arr=>arr.reduce((s,d)=>s+d.r,0);
+  const tiles=[
+    ['dotc-blue','Created',created.length,fmtM(sumR(created))+' potential value'],
+    ['dotc-blue','Advanced to Serious Dialogue',adv.length,fmtM(sumR(adv))+' advanced'],
+    ['dotc-green','Closed / Mutual Intent',closed.length,fmtM(sumR(closed))+' booked'],
+    ['dotc-red','Moved down',0,'downgraded'],
+    ['dotc-orange','Lost',lost.length,fmtM(sumR(lost.filter(d=>d.r)))+(lostUnv?' + '+lostUnv+' unvalued':'')]
+  ];
+  document.getElementById('mvScore').innerHTML=tiles.map(t=>'<div class="mv-tile"><div class="mvl"><span class="cdot '+t[0]+'"></span>'+t[1]+'</div><div class="mvn">'+t[2]+'</div><div class="mvs">'+t[3]+'</div></div>').join('');
+  document.getElementById('mvMeta').textContent=(mvRange==='ytd'?'year to date':mvRange==='custom'?(MON[a]+' – '+MON[b]):mvRange.toUpperCase())+' · '+lab[0]+'–'+lab[lab.length-1];
+
+  // ---- chart 1: opportunity flow by month (Created/Closed/Lost counts) ----
+  const byMon=(arr,dateFn)=>months.map(m=>arr.filter(d=>{const dt=dateFn(d);return dt&&dt.getFullYear()===2026&&dt.getMonth()===m;}));
+  const cCreated=byMon(created,d=>pd(d.ad)),cClosed=byMon(closed,d=>d._cl),cLost=byMon(lost,d=>d._lo);
+  groupedBars(document.getElementById('mvC1'),document.getElementById('mvT1'),lab,
+    [{name:'Created',color:C_BLUE,data:cCreated.map(x=>x.length)},{name:'Closed / MI',color:C_GREEN,data:cClosed.map(x=>x.length)},{name:'Lost',color:C_ORANGE,data:cLost.map(x=>x.length)}],
+    v=>Math.round(v),i=>{const parts=[['Created',cCreated[i]],['Closed / MI',cClosed[i]],['Lost',cLost[i]]].filter(p=>p[1].length);if(!parts.length)return '';
+      let h='';
+      parts.forEach(([nm,arr],pi)=>{h+='<div class="tt-grp'+(pi?' sep':'')+'"><span>'+nm+'</span><span>'+arr.length+'</span></div>';arr.forEach(d=>h+='<div class="tr"><span>'+esc(d.o)+'</span><span>'+(d.r?fmtM(d.r):'—')+'</span></div>');});return h;});
+  document.getElementById('mvL1').innerHTML='<span class="k"><span class="sw" style="background:'+C_BLUE+'"></span> Created</span><span class="k"><span class="sw" style="background:'+C_GREEN+'"></span> Closed / MI</span><span class="k"><span class="sw" style="background:'+C_ORANGE+'"></span> Lost</span>';
+
+  // ---- chart 2: value closed by month (dark green to match Closed bars) ----
+  const vClosed=months.map(m=>closed.filter(d=>d._cl&&d._cl.getMonth()===m));
+  groupedBars(document.getElementById('mvC2'),document.getElementById('mvT2'),lab,
+    [{name:'Value',color:C_GREEN,data:vClosed.map(a=>a.reduce((s,d)=>s+d.r,0)),showLabel:true}],
+    fmtM,i=>{const arr=vClosed[i];const tot=arr.reduce((s,d)=>s+d.r,0);if(!tot)return '';
+      let h='<div class="tt"><span>'+lab[i]+'</span><span>'+fmt(tot)+'</span></div>';arr.filter(d=>d.r).sort((x,y)=>y.r-x.r).forEach(d=>h+='<div class="tr"><span>'+esc(d.o)+'</span><span>'+fmt(d.r)+'</span></div>');return h;});
+
+  // ---- chart 4: open pipeline over time (month-end snapshots) w/ new-this-month shading ----
+  const snaps=months.map(m=>new Date(2026,m+1,0)); // last day of month
+  const snapLab=snaps.map(dt=>MON[dt.getMonth()]+' '+dt.getDate());
+  const inMonth=(dt,m)=>dt&&dt.getFullYear()===2026&&dt.getMonth()===m;
+  function stageAt(d,T){
+    // counts only opportunities still sitting in AE or SD at the snapshot date:
+    // anything already lost, closed, or at Mutual Intent by then drops out
+    if(d._lo&&d._lo<=T)return null;
+    if(d._cl&&d._cl<=T)return null;
+    if(d.s==='Mutual Intent'&&!d.cl){const mi=pd(d.aesd)||pd(d.ad);if(mi&&mi<=T)return null;}
+    if(d.s==='Longer-term Explorations'||d.s==='Early Explorations')return null; // not part of the AE/SD active pipeline
+    const ad=pd(d.ad),aesd=pd(d.aesd),sdae=pd(d.sdae);var best=null,stage=null;
+    const consider=(dt,st)=>{if(dt&&dt<=T&&(!best||dt>=best)){best=dt;stage=st;}};
+    consider(ad,'AE');consider(aesd,'SD');consider(sdae,'AE');
+    if(stage)return stage;
+    if(!ad&&!aesd&&!sdae){if(d.s==='Active Exploratory')return 'AE';if(d.s==='Serious Dialogue')return 'SD';}
+    return null;
+  }
+  const exAE=[],nwAE=[],exSD=[],nwSD=[],detail4=[];
+  snaps.forEach((T,si)=>{const m=months[si];let a0=0,a1=0,s0=0,s1=0;const de={AE:[],newAE:[],SD:[],newSD:[]};
+    deals.forEach(d=>{const st=stageAt(d,T);
+      if(st==='AE'){if(inMonth(pd(d.ad),m)){a1++;de.newAE.push(d.o);}else{a0++;de.AE.push(d.o);}}
+      else if(st==='SD'){if(inMonth(pd(d.aesd),m)){s1++;de.newSD.push(d.o);}else{s0++;de.SD.push(d.o);}}});
+    exAE.push(a0);nwAE.push(a1);exSD.push(s0);nwSD.push(s1);detail4.push(de);});
+  stackedSnap(document.getElementById('mvC4'),document.getElementById('mvT4'),snapLab,
+    [{name:'Active Exploratory',color:C_BLUE,data:exAE},{name:'New AE this month',color:'#a9c3ee',data:nwAE},
+     {name:'Serious Dialogue',color:C_ORANGE,data:exSD},{name:'New SD this month',color:'#f4cca8',data:nwSD}],
+    i=>{const de=detail4[i];const tot=exAE[i]+nwAE[i]+exSD[i]+nwSD[i];if(!tot)return '';
+      let h='<div class="tt"><span>'+snapLab[i]+'</span><span>'+tot+' active</span></div>';
+      [['Active Exploratory',de.AE],['New AE this month',de.newAE],['Serious Dialogue',de.SD],['New SD this month',de.newSD]].forEach(([nm,arr])=>{if(arr.length)h+='<div class="tr"><span>'+nm+'</span><span>'+arr.length+'</span></div>';});return h;});
+  document.getElementById('mvL4').innerHTML='<span class="k"><span class="sw" style="background:'+C_BLUE+'"></span> Active Exploratory</span><span class="k"><span class="sw" style="background:#a9c3ee"></span> New AE this month</span><span class="k"><span class="sw" style="background:'+C_ORANGE+'"></span> Serious Dialogue</span><span class="k"><span class="sw" style="background:#f4cca8"></span> New SD this month</span>';
+}
+
+/* ================= ACCRUALS (tab2) ================= */
+let c2Mode='segment';
+const F2=makeFilter('f2',()=>renderAccruals());
+document.getElementById('f2Help').innerHTML=FILT_HELP;
+document.querySelectorAll('#c2Mode button').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('#c2Mode button').forEach(x=>x.classList.remove('on'));b.classList.add('on');c2Mode=b.dataset.mode;renderAccruals();}));
+function renderAccruals(){
+  const rows=deals.filter(F2.match).filter(d=>BOOKED.has(d.s));
+  const legend=document.getElementById('c2Legend');const mount=document.getElementById('c2Chart');const tip=document.getElementById('c2Tip');
+  let series;
+  // per-(month, seriesIndex) client breakdown, so the tooltip reflects the exact segment hovered
+  let segClients; // segClients[seriesIndex][monthIndex] = {client:amt}
+  if(c2Mode==='segment'){
+    const corp=Array(12).fill(0),sc=Array(12).fill(0);
+    rows.forEach(d=>d.m.forEach((v,i)=>{(CORP.has(d.b)?corp:sc)[i]+=v;}));
+    series=[{name:'Systems Change',color:'var(--sc)',data:sc},{name:'Corporate & PE',color:'var(--corp)',data:corp}];
+    segClients=[Array.from({length:12},()=>({})),Array.from({length:12},()=>({}))];
+    rows.forEach(d=>{const si=CORP.has(d.b)?1:0;d.m.forEach((v,i)=>{if(v>0)segClients[si][i][d.c]=(segClients[si][i][d.c]||0)+v;});});
+    legend.innerHTML='<span class="k"><span class="sw" style="background:var(--corp)"></span> Corporate &amp; PE</span><span class="k"><span class="sw" style="background:var(--sc)"></span> Systems Change</span><span class="k"><span class="swl"></span> monthly target</span>';
+  } else {
+    const activeB=bucketOrder.filter(b=>rows.some(d=>d.b===b&&d.m.some(v=>v>0)));
+    series=activeB.map(b=>({name:short(b),color:BUCKET_COLORS[bucketOrder.indexOf(b)],data:Array(12).fill(0),bucket:b}));
+    rows.forEach(d=>{const se=series.find(s=>s.bucket===d.b);if(se)d.m.forEach((v,i)=>se.data[i]+=v);});
+    segClients=series.map(()=>Array.from({length:12},()=>({})));
+    rows.forEach(d=>{const si=series.findIndex(s=>s.bucket===d.b);if(si>=0)d.m.forEach((v,i)=>{if(v>0)segClients[si][i][d.c]=(segClients[si][i][d.c]||0)+v;});});
+    legend.innerHTML=series.map(se=>'<span class="k"><span class="sw" style="background:'+se.color+'"></span> '+esc(se.name)+'</span>').join('')+'<span class="k"><span class="swl"></span> target</span>';
+  }
+  const tipFn=(i,si)=>{
+    if(si==null){ // whole-month fallback: total across all segments
+      const all={};segClients.forEach(sc=>Object.entries(sc[i]).forEach(([c,v])=>all[c]=(all[c]||0)+v));
+      return clientTipAll(i,Object.entries(all),'accruals');
+    }
+    return clientTipAll(i,Object.entries(segClients[si][i]),series[si].name);
+  };
+  stackedBars(mount,tip,series,TGT,tipFn);
+  // ---- flipped table: months as columns; rows = Target / Booked / Gap ----
+  const tot=Array(12).fill(0);series.forEach(se=>se.data.forEach((v,i)=>tot[i]+=v));
+  let head='<thead><tr><th></th>';for(let i=0;i<12;i++)head+='<th class="num">'+MON[i]+'</th>';head+='<th class="num">Total</th></tr></thead>';
+  const rowHtml=(label,vals,cls)=>{let r='<tr'+(cls==='total'?' class="total"':'')+'><td>'+label+'</td>';let sum=0;vals.forEach(v=>{sum+=v;r+='<td class="num'+(cls==='gap'?(' '+(v>=0?'pos':'neg')):'')+'">'+(cls==='gap'?(v>=0?'+':'')+fmtM(v):fmtM(v))+'</td>';});r+='<td class="num'+(cls==='gap'?(' '+(sum>=0?'pos':'neg')):'')+'">'+(cls==='gap'?(sum>=0?'+':'')+fmtM(sum):fmtM(sum))+'</td></tr>';return r;};
+  const gaps=tot.map((v,i)=>v-TGT[i]);
+  document.getElementById('c2Table').innerHTML=head+'<tbody>'+rowHtml('Target',TGT)+rowHtml('Booked',tot,'total')+rowHtml('Gap',gaps,'gap')+'</tbody>';
+  document.getElementById('c2TblNote').textContent=D.target_note;
+  document.getElementById('acc-meta').textContent=F2.any()?'filtered view':'all booked deals';
+  F2.updateReset();
+}
+// tooltip listing ALL clients (no truncation)
+function clientTipAll(monthIdx,rows,label){
+  rows=rows.filter(r=>r[1]>0).sort((a,b)=>b[1]-a[1]);const tot=rows.reduce((a,b)=>a+b[1],0);if(tot<=0)return '';
+  let h='<div class="tt"><span>'+MON[monthIdx]+(label?' · '+label:'')+'</span><span>'+fmt(tot)+'</span></div>';
+  rows.forEach(r=>h+='<div class="tr"><span>'+esc(r[0])+'</span><span>'+fmt(r[1])+'</span></div>');
+  return h;
+}
+
+/* ================= MONTHLY REPORT (tab3) ================= */
+const P_START=new Date(D.period_start+'T00:00:00'), P_END=new Date(D.period_end+'T23:59:59');
+const inPeriod=d=>d&&d>=P_START&&d<=P_END;
+const PERIOD_LONG='August 1 \u2013 August 20, 2026';
+const PERIOD_SHORT='Aug 1 \u2013 Aug 20';
+const assessDefault={
+  mi:{r:'yellow',t:''}, loss:{r:'yellow',t:''}, sd:{r:'yellow',t:''},
+  ae:{r:'yellow',t:''}, overall:{r:'yellow',t:''}
+};
+/* stage a deal entered during the reporting period (drives the \u2605 marker) */
+function enteredThisPeriod(d){
+  if(d.s==='Serious Dialogue')return inPeriod(pd(d.aesd));
+  return inPeriod(pd(d.ad));
+}
+function ratingLetter(st){return st==='green'?'g':st==='yellow'?'y':st==='red'?'r':'';}
+/* tracker syntheses are prefixed with the BD lead's rating word \u2014 strip it for display */
+function cleanSyn(s){var t=(s||'').replace(/^\s*(green|yellow|red)\s*:\s*/i,'').trim();return t?t.charAt(0).toUpperCase()+t.slice(1):'';}
+
+function renderPipelineSnapshot(){
+  // Stage counts mirror the report's own tables so the numbers reconcile end-to-end.
+  const aeD=deals.filter(d=>d.s==='Active Exploratory');
+  const sdD=deals.filter(d=>d.s==='Serious Dialogue');
+  const miD=deals.filter(d=>BOOKED.has(d.s)&&(inPeriod(d._cl)||(!d.cl&&inPeriod(pd(d.aesd)))));
+  const data=[
+    {label:'Active Exploration',color:'#3f5a76',count:aeD.length,val:aeD.reduce((s,d)=>s+d.r,0)},
+    {label:'Serious Dialogue',color:'#cf8a52',count:sdD.length,val:sdD.reduce((s,d)=>s+d.r,0)},
+    {label:'Mutual Intent',color:'#3e8e5a',count:miD.length,val:miD.reduce((s,d)=>s+d.r,0)}
+  ];
+  const total=data.reduce((s,d)=>s+d.count,0);
+  const entered=deals.filter(d=>inPeriod(pd(d.ad))).length;
+  const advanced=deals.filter(d=>inPeriod(pd(d.aesd))).length;
+  const won=miD.length;
+  const lost=deals.filter(d=>d.s==='Lost'&&inPeriod(d._lo)).length;
+  const convs=['advanced to Serious Dialogue','reached Mutual Intent / Closed'];
+  const convN=[advanced,won];
+
+  const W=760,cx=318,maxHalf=150,minHalf=34;
+  const maxC=Math.max(...data.map(d=>d.count),1);
+  const halfOf=c=>minHalf+(maxHalf-minHalf)*(c/maxC);
+  const barH=50,gap=42,y0=24;
+  const rows=data.map((d,i)=>({...d,half:halfOf(d.count),y:y0+i*(barH+gap)}));
+  const Hs=y0+3*barH+2*gap+6;
+
+  let svg='<svg class="funnel" viewBox="0 0 '+W+' '+Hs+'" role="img" aria-label="Pipeline funnel by stage">';
+  for(let i=0;i<rows.length-1;i++){
+    const a=rows[i],b=rows[i+1],ay=a.y+barH,by=b.y;
+    svg+='<line class="fedge" x1="'+(cx-a.half).toFixed(1)+'" y1="'+ay+'" x2="'+(cx-b.half).toFixed(1)+'" y2="'+by+'"/>';
+    svg+='<line class="fedge" x1="'+(cx+a.half).toFixed(1)+'" y1="'+ay+'" x2="'+(cx+b.half).toFixed(1)+'" y2="'+by+'"/>';
+    const gy=(ay+by)/2+4;
+    svg+='<text class="fconv" x="'+cx+'" y="'+gy+'" text-anchor="middle">\u25be '+convN[i]+' '+convs[i]+' this period</text>';
+  }
+  rows.forEach(d=>{
+    const my=d.y+barH/2;
+    svg+='<rect class="fbar" x="'+(cx-d.half).toFixed(1)+'" y="'+d.y+'" width="'+(d.half*2).toFixed(1)+'" height="'+barH+'" rx="7" fill="'+d.color+'"/>';
+    svg+='<text class="fcount" x="'+cx+'" y="'+(my+9)+'" text-anchor="middle" style="font-size:26px">'+d.count+'</text>';
+    svg+='<text class="fname" x="150" y="'+(my-3)+'" text-anchor="end">'+d.label+'</text>';
+    svg+='<text class="fsub" x="150" y="'+(my+12)+'" text-anchor="end">'+d.count+' opportunit'+(d.count===1?'y':'ies')+'</text>';
+    svg+='<text class="fval" x="490" y="'+(my+5)+'" text-anchor="start">'+(d.val>0?fmtM(d.val):'\u2014')+'</text>';
+  });
+  svg+='</svg>';
+
+  const stat=(n,l,cls)=>'<div class="snap-stat '+(cls||'')+'"><b>'+n+'</b><span>'+l+'</span></div>';
+  return '<div class="snap"><div class="snap-head"><span class="snap-cap">Pipeline by stage \u00b7 as of Aug 20, 2026</span>'+
+    '</div>'+
+    svg+
+    '<div class="snap-flows"><span class="lbl">Movement \u00b7 '+PERIOD_SHORT+'</span>'+
+    stat('+'+entered,'entered AE','pos')+stat('+'+advanced,'advanced to SD','pos')+stat('+'+won,'to MI / Closed','pos')+stat(lost,'lost',lost?'neg':'')+'</div></div>';
+}
+
+/* Shared renderer so every stage table is cohesive */
+function ratingSelect(sel,k){
+  const opts=[['g','Green'],['y','Yellow'],['r','Red'],['','No rating']];
+  return '<select class="syn-rate" data-k="'+k+'" title="Set the BD lead rating">'+
+    opts.map(o=>'<option value="'+o[0]+'"'+(o[0]===sel?' selected':'')+'>'+o[1]+'</option>').join('')+'</select>';
+}
+function stageRow(r,grp){
+  const val=(r.val!=null&&r.val>0)?fmt(r.val):'<span class="none">\u2014</span>';
+  let cell;
+  if(r.editable){
+    cell='<div class="syn-cell syn-'+r.rating+' syn-edit">'+
+      '<div class="syn-txt" contenteditable="true" data-k="'+r.key+'" data-ph="Write a synthesis\u2026">'+esc(r.syn)+'</div>'+
+      ratingSelect(r.rating,r.key)+'</div>';
+  }else{
+    cell='<span class="syn-cell syn-'+r.rating+'">'+(r.syn?esc(r.syn):'<span style="opacity:.65">No written synthesis this period.</span>')+'</span>';
+  }
+  return '<tr'+(grp?' class="grp-start"':'')+'><td class="bkt">'+esc(r.bucket)+'</td>'+
+    '<td class="opp-c">'+(r.star?'<span class="star">\u2605</span>':'')+esc(r.opp)+'</td>'+
+    '<td>'+cell+'</td>'+
+    '<td class="num">'+val+'</td></tr>';
+}
+function stageTable(title,rows,opts){
+  opts=opts||{};
+  const tag=opts.small?'h4':'h3';
+  let h='<'+tag+' class="stg-h">'+title+': <span class="cnt">'+rows.length+'</span></'+tag+'>';
+  if(!rows.length)return h+'<table class="stage-tbl"><tbody><tr><td class="empty-cell">No opportunities match these filters.</td></tr></tbody></table>';
+  h+='<table class="stage-tbl"><colgroup><col style="width:21%"><col style="width:27%"><col style="width:42%"><col style="width:10%"></colgroup>'+
+    '<thead><tr><th>2026 Bucket</th><th>Opportunity</th><th>Synthesis</th><th class="num">2026 $</th></tr></thead><tbody>';
+  rows.forEach((r,i)=>h+=stageRow(r,i>0&&!!r.bucket));
+  return h+'</tbody></table>';
+}
+/* turn deals into display rows: sorted by bucket, bucket label shown once per group */
+/* Syntheses written in the browser live here, keyed by the deal's index, and
+   are carried through Save as\u2026 so a filed version keeps what was written. */
+const synEdits={};
+function synOf(d){const e=synEdits[d.__k];return (e&&e.t!==undefined)?e.t:cleanSyn(d.sy);}
+function rateOf(d){const e=synEdits[d.__k];return (e&&e.r!==undefined)?e.r:ratingLetter(d.st);}
+function rowsFor(stage,list,editable){
+  const ds=(list||deals).filter(d=>d.s===stage).slice()
+    .sort((a,b)=>a.b===b.b?a.o.toLowerCase().localeCompare(b.o.toLowerCase()):a.b.localeCompare(b.b));
+  let last=null;
+  return ds.map(d=>{
+    const first=d.b!==last; last=d.b;
+    return {bucket:first?short(d.b):'',opp:d.o,star:enteredThisPeriod(d),key:d.__k,
+            rating:rateOf(d),syn:synOf(d),val:d.r,editable:!!editable};
+  });
+}
+const STAGE_LEGEND='<div class="stage-legend"><span class="k"><span class="star">\u2605</span> entered this stage this period</span>'+
+  '<span class="k"><span class="sw" style="background:#e3efe7"></span> Green</span>'+
+  '<span class="k"><span class="sw" style="background:#f6eed6"></span> Yellow</span>'+
+  '<span class="k"><span class="sw" style="background:#f3e6e2"></span> Red</span>'+
+  '<span class="k" style="color:var(--faint)">shading = BD lead rating</span></div>';
+
+const PIPE_STAGES=['Serious Dialogue','Active Exploratory','Longer-term Explorations','Early Explorations'];
+let F3=null;
+function otherDialogues(shown){
+  const cols=[['Longer-Term Explorations','Longer-term Explorations'],['Early Dialogues','Early Explorations']];
+  let h='<div class="od-cols">';
+  cols.forEach(function(c){
+    const title=c[0],stage=c[1];
+    const ds=shown.filter(d=>d.s===stage).slice()
+      .sort((a,b)=>a.b===b.b?a.o.toLowerCase().localeCompare(b.o.toLowerCase()):a.b.localeCompare(b.b));
+    h+='<div class="od-col"><div class="od-head"><span class="od-t">'+title+'</span><span class="od-n">'+ds.length+'</span></div>';
+    if(!ds.length)h+='<div class="od-empty">'+((F3&&F3.any())?'No opportunities match these filters.':'Nothing is currently at this stage.')+'</div>';
+    ds.forEach(function(d){
+      h+='<div class="od-card">'+
+         '<div class="od-name">'+(enteredThisPeriod(d)?'<span class="star">\u2605</span>':'')+esc(d.o)+'</div>'+
+         '<div class="od-bkt">'+esc(short(d.b))+'</div></div>';
+    });
+    h+='</div>';
+  });
+  return h+'</div>';
+}
+function renderActivePipeline(){
+  const shown=deals.filter(d=>PIPE_STAGES.includes(d.s)&&(F3?F3.match(d):true));
+  const sd=rowsFor('Serious Dialogue',shown,true);
+  const sdVal=shown.filter(d=>d.s==='Serious Dialogue').reduce((s,d)=>s+d.r,0);
+  const nVal=shown.filter(d=>d.s==='Serious Dialogue'&&!d.r).length;
+  let h='<p class="edit-hint">Click any Serious Dialogue or Active Exploratory synthesis to rewrite it, and set its rating with the dropdown in the corner of the cell. Use Save as\u2026 to keep a version.</p>'+stageTable('Serious Dialogue',sd);
+  h+='<p class="note">Serious Dialogue carrying dollar values: '+fmt(sdVal)+'.'+
+     (nVal?' '+nVal+' name'+(nVal===1?'':'s')+' carry no figure yet and are excluded from the SD dollar projection.':'')+'</p>';
+  h+=stageTable('Active Exploratory',rowsFor('Active Exploratory',shown,true));
+  h+='<div class="rsub"><h3 class="rsub-h">Other Dialogues</h3>'+
+     '<p class="rsub-p">Accounts we are carrying outside the active Serious Dialogue and Active Exploratory book \u2014 longer-horizon relationships on the left, the earliest conversations on the right.</p></div>';
+  h+=otherDialogues(shown);
+  document.getElementById('pipeTables').innerHTML=h;
+  document.querySelectorAll('#pipeTables .syn-txt').forEach(el=>{
+    el.addEventListener('input',()=>{const k=el.dataset.k;synEdits[k]=synEdits[k]||{};synEdits[k].t=el.textContent;});
+  });
+  document.querySelectorAll('#pipeTables .syn-rate').forEach(s=>{
+    s.addEventListener('change',()=>{const k=s.dataset.k;synEdits[k]=synEdits[k]||{};synEdits[k].r=s.value;renderActivePipeline();});
+  });
+  if(F3){F3.updateReset();
+    const n=shown.length,tot=deals.filter(d=>PIPE_STAGES.includes(d.s)).length;
+    document.getElementById('f3Count').textContent=n===tot?(tot+' open opportunities'):(n+' of '+tot+' open opportunities');}
+}
+
+function renderReport(){
+  const el=document.getElementById('report');
+  const H=[];
+  H.push('<div class="report-masthead"><div class="rm-brand">Incandescent</div><h2 class="rm-title">Business Development Activity &amp; Performance Report</h2><div class="rm-period">Reporting period: <b>'+PERIOD_LONG+'</b> &nbsp;\u00b7&nbsp; Prepared August 20, 2026</div>'+(savedStamp()?'<div class="rm-version">'+esc(savedStamp())+'</div>':'')+'</div>');
+  H.push('<p class="note" style="margin-top:-8px;margin-bottom:22px">Built from the 2026 Tracking Raw Data tab of the BD Tracker. MAW coaching, packaged-consulting, speaking and IP revenue are tracked separately and excluded from the booked figures below.</p>');
+  H.push('<h3>Pipeline snapshot</h3><p style="margin-bottom:16px">Where the open pipeline stands by stage, with the moves in and out during '+PERIOD_SHORT+'.</p>');
+  H.push(renderPipelineSnapshot());
+
+  /* ---- Section 1: resolved this period ---- */
+  H.push('<div class="rsection"><div class="rs-eyebrow">Section 1 \u00b7 Resolved this period</div><h2 class="rs-title">Closed, Mutual Intent &amp; Lost</h2><p class="rs-sub">Opportunities that reached commitment or fell away during '+PERIOD_LONG+'.</p></div>');
+  const resolved=deals.filter(d=>BOOKED.has(d.s)&&(inPeriod(d._cl)||(!d.cl&&inPeriod(pd(d.aesd)))))
+    .sort((a,b)=>a.b===b.b?b.r-a.r:a.b.localeCompare(b.b));
+  const accrual=d=>{const parts=[];let i=0;
+    while(i<12){if(d.m[i]<=0){i++;continue;}let j=i;while(j+1<12&&d.m[j+1]===d.m[i])j++;
+      const amt=fmtM(d.m[i]);parts.push((j>i?MON[i]+'\u2013'+MON[j]+' '+amt+'/mo':MON[i]+' '+amt));i=j+1;}
+    return parts.join('; ')||'\u2014';};
+  let rt='<h3>Closed / Mutual Intent: <span class="cnt">'+resolved.length+'</span></h3>'+
+    '<table class="tbl"><thead><tr><th>2026 Bucket</th><th>Opportunity</th><th class="num">Amount</th><th class="num">Closed / MI</th><th>Accrual schedule</th></tr></thead><tbody>';
+  let lastB=null,mi=false;
+  resolved.forEach(d=>{
+    const showB=d.b!==lastB;lastB=d.b;
+    const dt=d.cl?d.cl.replace(/\/2026$/,''):(d.aesd||'').replace(/\/2026$/,'')+' \u00b7 MI';
+    if(!d.cl)mi=true;
+    rt+='<tr'+(showB?' class="grp-start"':'')+'><td class="bkt">'+esc(showB?short(d.b):'')+'</td>'+
+      '<td>'+esc(d.o)+'</td><td class="num">'+fmt(d.r)+'</td><td class="num">'+esc(dt)+'</td><td>'+accrual(d)+'</td></tr>';
+  });
+  rt+='<tr class="total"><td></td><td>Total</td><td class="num">'+fmt(resolved.reduce((s,d)=>s+d.r,0))+'</td><td class="num"></td><td></td></tr></tbody></table>';
+  if(mi)rt+='<p class="note">Rows marked MI reached Mutual Intent within the period but have no close date recorded yet; they are counted here, and in booked revenue, on the strength of that commitment.</p>';
+  H.push(rt);
+
+  const lostD=deals.filter(d=>d.s==='Lost'&&inPeriod(d._lo))
+    .sort((a,b)=>a.b.localeCompare(b.b));
+  let lt='<h3>Lost: <span class="cnt">'+lostD.length+'</span></h3><table class="tbl"><thead><tr><th>2026 Bucket</th><th>Opportunity</th><th class="num">Lost</th><th>Synthesis</th><th class="num">2026 $</th></tr></thead><tbody>';
+  if(!lostD.length)lt+='<tr><td colspan="5" style="text-align:center;color:var(--faint);padding:18px">No opportunities were recorded as lost this period.</td></tr>';
+  else lostD.forEach(d=>{lt+='<tr><td class="bkt">'+esc(short(d.b))+'</td><td>'+esc(d.o)+'</td><td class="num">'+esc((d.lo||'').replace(/\/2026$/,''))+'</td><td>'+esc(cleanSyn(d.sy))+'</td><td class="num">'+(d.r?fmt(d.r):'\u2014')+'</td></tr>';});
+  H.push(lt+'</tbody></table>');
+
+  /* ---- Section 2: active pipeline (filterable) ---- */
+  H.push('<div class="rsection"><div class="rs-eyebrow">Section 2 \u00b7 Open opportunities</div><h2 class="rs-title">Active Pipeline</h2><p class="rs-sub">Live opportunities by stage as of Aug 20, 2026. Filter the whole section \u2014 every table below responds.</p></div>');
+  H.push('<div class="filters" id="f3wrap"><div class="row">'+
+    '<div class="fgroup ms"><label>Revenue bucket</label><div id="f3Bucket"></div></div>'+
+    '<div class="fgroup ms"><label>Stage</label><div id="f3Stage"></div></div>'+
+    '<div class="fgroup ms"><label>Quarter (accrual)</label><div id="f3Quarter"></div></div>'+
+    '<div class="fgroup ms"><label>BD lead</label><div id="f3Lead"></div></div>'+
+    '<div class="fgroup"><label>Date range</label><div class="date-pair"><input type="date" id="f3From"><span>to</span><input type="date" id="f3To"></div></div>'+
+    '<div class="reset"><button id="f3Reset" disabled>Reset</button></div></div>'+
+    '<div class="filt-help" id="f3Help"></div></div>'+
+    '<div class="pipe-count" id="f3Count"></div>');
+  H.push(STAGE_LEGEND);
+  H.push('<div id="pipeTables"></div>');
+
+  H.push('<h3>Performance Assessment</h3><p class="edit-hint">Click any assessment to write it, and set each rating with the dropdown. (Edits live in this browser view.)</p><div id="assessWrap"></div>');
+  el.innerHTML=H.join('');
+  F3=makeFilter('f3',()=>renderActivePipeline(),PIPE_STAGES);
+  document.getElementById('f3Help').innerHTML=FILT_HELP;
+  renderActivePipeline();
+  renderAssess();
+}
+
+/* Q3 cumulative waterfall — months ladder up to the target, each with its own monthly target */
+function renderQ3Waterfall(){
+  const mount=document.getElementById('q3wf'),tip=document.getElementById('q3wfTip');
+  if(!mount)return;
+  const Q3M=[6,7,8],MN=['July','August','September'];
+  const mTgt=[D.q3.targets.Jul,D.q3.targets.Aug,D.q3.targets.Sep]; // 700k / 800k / 1.1M
+  const booked=deals.filter(d=>BOOKED.has(d.s));
+  const step=Q3M.map(mi=>booked.reduce((s,d)=>s+d.m[mi],0));           // [Jul,Aug,Sep]
+  const clients=Q3M.map(mi=>booked.filter(d=>d.m[mi]>0).map(d=>[d.o,d.m[mi]]).sort((a,b)=>b[1]-a[1]));
+  const cum=[]; step.reduce((a,v,i)=>cum[i]=a+v,0);
+  const bookedTot=cum[cum.length-1];
+  const target=D.q3.target_total, floor=D.q3.floor, gap=Math.max(target-bookedTot,0);
+
+  const W=760,H=344,padL=58,padR=18,padT=30,padB=56;
+  const iw=W-padL-padR,ih=H-padT-padB;
+  const maxV=Math.max(floor,target)*1.05;
+  const yOf=v=>padT+ih-(v/maxV)*ih;
+  const N=4, cw=iw/N, bw=Math.min(cw*0.5,116);
+  const colX=i=>padL+cw*i+(cw-bw)/2;
+
+  let svg='<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Q3 waterfall with monthly targets">';
+  svg+='<defs><pattern id="wfHatch" width="7" height="7" patternTransform="rotate(45)" patternUnits="userSpaceOnUse"><rect width="7" height="7" fill="#e4d9c4"/><line x1="0" y1="0" x2="0" y2="7" stroke="#cbb98f" stroke-width="2"/></pattern></defs>';
+  // gridlines
+  svg+='<g class="axis">';
+  [0,1e6,2e6,3e6].forEach(gv=>{if(gv>maxV)return;const y=yOf(gv);svg+='<line x1="'+padL+'" y1="'+y.toFixed(1)+'" x2="'+(W-padR)+'" y2="'+y.toFixed(1)+'"/><text x="'+(padL-7)+'" y="'+(y+3)+'" text-anchor="end">'+fmtM(gv)+'</text>';});
+  svg+='</g>';
+
+  const stepColor='#3e8e5a';
+  let prevTopY=null,prevRightX=null;
+  for(let i=0;i<3;i++){
+    const x=colX(i), bot=(i===0?0:cum[i-1]), top=cum[i], tgtTop=bot+mTgt[i];
+    const yb=yOf(bot), yt=yOf(top), yTg=yOf(tgtTop);
+    // monthly target ghost (dashed outline from running total up to running total + month target)
+    svg+='<rect class="wf-tgt" data-col="'+i+'" x="'+(x-3).toFixed(1)+'" y="'+yTg.toFixed(1)+'" width="'+(bw+6).toFixed(1)+'" height="'+(yb-yTg).toFixed(1)+'" fill="none" stroke="var(--under)" stroke-width="1.3" stroke-dasharray="4 3" rx="2"/>';
+    svg+='<text class="wf-tgtlab" x="'+(x+bw+5).toFixed(1)+'" y="'+(yTg+3).toFixed(1)+'" text-anchor="start">tgt '+fmtM(mTgt[i])+'</text>';
+    // connector from previous booked top to this bottom
+    if(prevTopY!=null){svg+='<line class="wf-conn" x1="'+prevRightX.toFixed(1)+'" y1="'+prevTopY.toFixed(1)+'" x2="'+x.toFixed(1)+'" y2="'+yb.toFixed(1)+'"/>';}
+    // booked step (solid)
+    svg+='<rect class="wf-seg" data-col="'+i+'" x="'+x.toFixed(1)+'" y="'+yt.toFixed(1)+'" width="'+bw.toFixed(1)+'" height="'+Math.max(yb-yt,1).toFixed(1)+'" fill="'+stepColor+'" rx="1"/>';
+    svg+='<text class="wf-incrb" x="'+(x+bw/2).toFixed(1)+'" y="'+((yt+yb)/2+4).toFixed(1)+'" text-anchor="middle">+'+fmtM(step[i])+'</text>';
+    svg+='<text class="axis" x="'+(x+bw/2).toFixed(1)+'" y="'+(H-padB+17)+'" text-anchor="middle" style="fill:var(--muted);font-size:10.5px">'+MN[i]+'</text>';
+    prevTopY=yt; prevRightX=x+bw;
+  }
+
+  // Target column: booked total (solid) + gap (hatched) up to the $2.6M quarter target
+  const tx=colX(3);
+  const yBookTop=yOf(bookedTot), y0v=yOf(0), yTgt=yOf(target);
+  svg+='<line class="wf-conn" x1="'+prevRightX.toFixed(1)+'" y1="'+prevTopY.toFixed(1)+'" x2="'+tx.toFixed(1)+'" y2="'+yBookTop.toFixed(1)+'"/>';
+  svg+='<rect class="wf-seg" data-col="3" x="'+tx.toFixed(1)+'" y="'+yBookTop.toFixed(1)+'" width="'+bw.toFixed(1)+'" height="'+(y0v-yBookTop).toFixed(1)+'" fill="'+stepColor+'" opacity="0.9" rx="1"/>';
+  svg+='<rect class="wf-seg" data-col="4" x="'+tx.toFixed(1)+'" y="'+yTgt.toFixed(1)+'" width="'+bw.toFixed(1)+'" height="'+(yBookTop-yTgt).toFixed(1)+'" fill="url(#wfHatch)" stroke="#cbb98f" stroke-width="1" rx="1"/>';
+  svg+='<text class="wf-incr" x="'+(tx+bw/2).toFixed(1)+'" y="'+(yTgt-6).toFixed(1)+'" text-anchor="middle">'+fmtM(target)+'</text>';
+  svg+='<text class="axis" x="'+(tx+bw/2).toFixed(1)+'" y="'+(H-padB+17)+'" text-anchor="middle" style="fill:var(--muted);font-size:10.5px">Booked \u2192 target</text>';
+
+  // quarter target line + $3.0M success floor
+  svg+='<line x1="'+padL+'" y1="'+yTgt.toFixed(1)+'" x2="'+(W-padR)+'" y2="'+yTgt.toFixed(1)+'" stroke="var(--under)" stroke-width="1.5" stroke-dasharray="5 3"/>';
+  if(floor&&floor<=maxV){const yf=yOf(floor);svg+='<line x1="'+padL+'" y1="'+yf.toFixed(1)+'" x2="'+(W-padR)+'" y2="'+yf.toFixed(1)+'" stroke="var(--ink)" stroke-width="1" stroke-dasharray="1 4" opacity="0.5"/><text class="wf-ref" x="'+(W-padR)+'" y="'+(yf-5).toFixed(1)+'" text-anchor="end" style="fill:var(--ink);opacity:.6">$3.0M success floor</text>';}
+
+  svg+='</svg>';
+  mount.innerHTML=svg;
+
+  function place(ev,html){if(!html){tip.classList.remove('show');return;}tip.innerHTML=html;tip.classList.add('show');const box=mount.getBoundingClientRect();tip.style.left=(ev.clientX-box.left)+'px';tip.style.top=(ev.clientY-box.top-12)+'px';}
+  function tipFor(col){
+    if(col<3){
+      const rows=clients[col],tot=step[col],tg=mTgt[col],delta=tot-tg;
+      let h='<div class="tt"><span>'+MN[col]+'</span><span>'+fmt(tot)+'</span></div>';
+      h+='<div class="tr"><span>Month target</span><span>'+fmt(tg)+'</span></div>';
+      h+='<div class="tr"><span>'+(delta>=0?'Over target':'Under target')+'</span><span>'+(delta>=0?'+':'')+fmt(delta)+'</span></div>';
+      h+='<div class="more" style="margin:5px 0 2px">Booked by client</div>';
+      rows.slice(0,7).forEach(r=>h+='<div class="tr"><span>'+esc(r[0])+'</span><span>'+fmt(r[1])+'</span></div>');
+      if(rows.length>7)h+='<div class="more">+ '+(rows.length-7)+' more clients</div>';
+      return h;
+    }
+    if(col===3){
+      return '<div class="tt"><span>Q3 booked</span><span>'+fmt(bookedTot)+'</span></div>'+
+        '<div class="tr"><span>July</span><span>'+fmt(step[0])+'</span></div>'+
+        '<div class="tr"><span>August</span><span>'+fmt(step[1])+'</span></div>'+
+        '<div class="tr"><span>September</span><span>'+fmt(step[2])+'</span></div>'+
+        '<div class="tr"><span>% of target</span><span>'+Math.round(bookedTot/target*100)+'%</span></div>';
+    }
+    return '<div class="tt"><span>Gap to target</span><span>'+fmt(gap)+'</span></div>'+
+      '<div class="tr"><span>Booked</span><span>'+fmt(bookedTot)+'</span></div>'+
+      '<div class="tr"><span>Q3 target</span><span>'+fmt(target)+'</span></div>'+
+      '<div class="tr"><span>Success floor</span><span>'+fmt(floor)+'</span></div>';
+  }
+  mount.querySelectorAll('.wf-seg,.wf-tgt').forEach(r=>{
+    r.addEventListener('mousemove',ev=>place(ev,tipFor(+r.dataset.col)));
+    r.addEventListener('mouseleave',()=>tip.classList.remove('show'));
+  });
+}
+function ratingOpts(sel){return ['green','yellow','red'].map(r=>'<option value="'+r+'"'+(r===sel?' selected':'')+'>'+r.charAt(0).toUpperCase()+r.slice(1)+'</option>').join('');}
+function renderAssess(){
+  const A=assessDefault;
+  const boxes=[['mi','Mutual Intent / Closed',''],['loss','Losses',''],['sd','Serious Dialogue',''],['ae','Active Exploratory',''],['overall','Overall Assessment','overall']];
+  const wrap=document.getElementById('assessWrap');
+  wrap.innerHTML=boxes.map(([k,title,cls])=>
+    '<div class="assess-box '+cls+'"><div class="assess-head"><h4>'+title+'</h4><select class="rate-sel '+A[k].r+'" data-k="'+k+'" style="background:'+({green:'#e6f0ea',yellow:'#f7efd9',red:'#f4e9e6'}[A[k].r])+'">'+ratingOpts(A[k].r)+'</select></div>'+
+    '<div class="assess-body" contenteditable="true" data-k="'+k+'" data-ph="'+(k==='overall'?'Write the overall assessment\u2026':'Write this assessment\u2026')+'">'+esc(A[k].t)+'</div></div>').join('');
+  wrap.querySelectorAll('.assess-body').forEach(b=>b.addEventListener('input',()=>{A[b.dataset.k].t=b.textContent;}));
+  wrap.querySelectorAll('.rate-sel').forEach(s=>s.addEventListener('change',()=>{const k=s.dataset.k;A[k].r=s.value;s.className='rate-sel '+s.value;s.style.background={green:'#e6f0ea',yellow:'#f7efd9',red:'#f4e9e6'}[s.value];}));
+}
+
+/* ================= FULL DATABASE (tab5) ================= */
+let sortKey='r',sortDir=-1;const openSet=new Set();
+const F5=makeFilter('f5',()=>renderTable());
+document.getElementById('f5Help').innerHTML=FILT_HELP;
+document.querySelectorAll('#t5 .ledger thead th[data-sort]').forEach(th=>th.addEventListener('click',()=>{const k=th.dataset.sort;if(sortKey===k)sortDir*=-1;else{sortKey=k;sortDir=(k==='r'||k==='d')?-1:1;}document.querySelectorAll('#t5 .ledger thead th').forEach(x=>x.classList.remove('sorted'));th.classList.add('sorted');renderTable();}));
+function dateOf(d){if(BOOKED.has(d.s)&&d.cl)return 'Closed '+d.cl;if(d.s==='Lost'&&d.lo)return 'Lost '+d.lo;if(d.aesd)return 'SD '+d.aesd;if(d.ad)return 'Added '+d.ad;return '—';}
+function sparkline(m){const mx=Math.max(...m,1);return '<span class="spark">'+m.map(v=>'<i style="height:'+Math.max(1,Math.round(v/mx*20))+'px"></i>').join('')+'</span>';}
+function renderTable(){
+  const shown=deals.filter(F5.match);
+  const rows=shown.slice().sort((a,b)=>{let x,y;if(sortKey==='r'){x=a.r;y=b.r;}else if(sortKey==='d'){x=a._pd?a._pd.getTime():0;y=b._pd?b._pd.getTime():0;}else if(sortKey==='s'){x=stageOrder.indexOf(a.s);y=stageOrder.indexOf(b.s);}else if(sortKey==='b'){x=a.b;y=b.b;}else{x=a.o.toLowerCase();y=b.o.toLowerCase();}return x<y?-sortDir:x>y?sortDir:0;});
+  const tb=document.getElementById('t5rows');tb.innerHTML='';
+  if(!rows.length)tb.innerHTML='<tr><td colspan="6"><div class="empty"><b>No opportunities match these filters</b>Widen the bucket, stage, quarter, or date range.</div></td></tr>';
+  rows.forEach(d=>{const tr=document.createElement('tr');tr.className=openSet.has(d.__k)?'open':'';
+    tr.innerHTML='<td><div class="opp">'+esc(d.o)+'<span class="cli">'+esc(d.c)+'</span></div></td>'+
+      '<td class="hide-m"><div class="bk">'+esc(short(d.b))+'</div><div class="leads">'+(d.l.length?d.l.map(l=>'<span class="chip">'+esc(l)+'</span>').join(''):'<span class="chip" style="opacity:.5">—</span>')+'</div></td>'+
+      '<td><span class="stage '+stageClass(d.s)+'">'+esc(d.s)+'</span></td>'+
+      '<td class="num hide-m" style="font-size:11px;color:var(--muted)">'+esc(dateOf(d))+'</td>'+
+      '<td class="hide-m">'+(d.r?sparkline(d.m):'<span style="color:var(--faint);font-size:11px">no accrual</span>')+'</td>'+
+      '<td class="num">'+(d.r?fmt(d.r):'—')+'</td>';
+    tr.addEventListener('click',()=>{openSet.has(d.__k)?openSet.delete(d.__k):openSet.add(d.__k);renderTable();});tb.appendChild(tr);
+    if(openSet.has(d.__k)){const dr=document.createElement('tr');dr.className='detail';let h='<td colspan="6"><div class="inner">';
+      if(d.sy)h+='<div class="dl">Synthesis</div><p>'+esc(d.sy)+'</p>';
+      const acc=d.m.map((v,i)=>v>0?(MON[i]+' '+fmtM(v)):null).filter(Boolean);
+      if(acc.length)h+='<div class="dl">2026 accrual</div><p class="mono" style="font-size:11.5px">'+acc.join('  ·  ')+'</p>';
+      if(!d.sy&&!acc.length)h+='<p style="color:var(--faint)">No further detail recorded.</p>';h+='</div></td>';dr.innerHTML=h;tb.appendChild(dr);}});
+  document.getElementById('t5foot').textContent=fmt(shown.filter(d=>BOOKED.has(d.s)).reduce((s,d)=>s+d.r,0));
+  document.getElementById('t5count').textContent=shown.length+' of '+deals.length+' opportunities';
+  F5.updateReset();
+}
+
+/* ================= PROJECTION (tab4) ================= */
+const ALLOC_MONTHS=[7,8,9,10,11]; // Aug..Dec
+const baseMonthly=(()=>{const a=Array(12).fill(0);deals.filter(d=>BOOKED.has(d.s)).forEach(d=>d.m.forEach((v,i)=>a[i]+=v));return a;})();
+const POOL_ORDER=['Serious Dialogue','Active Exploratory','Longer-term Explorations','Early Explorations'];
+const POOL_LABEL={'Serious Dialogue':'Serious Dialogue','Active Exploratory':'Active Exploratory','Longer-term Explorations':'Longer-Term Explorations','Early Explorations':'Early Dialogues'};
+// same sequence the Pipeline snapshot tab uses: stage, then bucket, then name
+const pipelinePool=deals.filter(d=>POOL_ORDER.includes(d.s)).slice().sort((a,b)=>{
+  const s=POOL_ORDER.indexOf(a.s)-POOL_ORDER.indexOf(b.s);if(s)return s;
+  if(a.b!==b.b)return a.b.localeCompare(b.b);
+  return a.o.toLowerCase().localeCompare(b.o.toLowerCase());});
+let projItems=[]; // {id,name,bucket,value,alloc:{7:$,..},custom}  — alloc holds DOLLARS per month (Aug–Dec)
+function defaultMonths(d){
+  const a={};ALLOC_MONTHS.forEach(m=>a[m]=0);
+  const v=Math.round((d&&d.r)?d.r:0);if(v<=0)return a;
+  const augDec=ALLOC_MONTHS.reduce((s,m)=>s+(d?(d.m[m]||0):0),0);
+  let acc=0,mx=ALLOC_MONTHS[0];
+  ALLOC_MONTHS.forEach(m=>{const val=augDec>0?Math.round(v*(d.m[m]/augDec)):Math.round(v/ALLOC_MONTHS.length);a[m]=val;acc+=val;if(a[m]>a[mx])mx=m;});
+  a[mx]+=(v-acc); // absorb rounding drift so the months sum exactly to the total value
+  return a;
+}
+function evenMonths(v){const a={};v=Math.round(+v||0);const per=Math.round(v/ALLOC_MONTHS.length);let acc=0;ALLOC_MONTHS.forEach(m=>{a[m]=per;acc+=per;});a[ALLOC_MONTHS[ALLOC_MONTHS.length-1]]+=(v-acc);return a;}
+function pctOf(dollars,total){return total>0?Math.round((+dollars||0)/total*100):0;}
+function refreshSelect(){
+  const sel=document.getElementById('pipeSelect');const used=new Set(projItems.map(p=>p.id));
+  let h='<option value="">Choose from pipeline…</option>';
+  POOL_ORDER.forEach(st=>{
+    const opts=pipelinePool.map((d,i)=>[d,i]).filter(x=>x[0].s===st&&!used.has('p'+x[1]));
+    if(!opts.length)return;
+    h+='<optgroup label="'+POOL_LABEL[st]+'">';
+    opts.forEach(x=>h+='<option value="p'+x[1]+'">'+esc(x[0].o)+'</option>');
+    h+='</optgroup>';
+  });
+  h+='<option value="__custom">+ Custom opportunity…</option>';sel.innerHTML=h;
+}
+document.getElementById('pipeAdd').addEventListener('click',()=>{
+  const sel=document.getElementById('pipeSelect');const v=sel.value;if(!v)return;
+  if(v==='__custom'){projItems.push({id:'c'+Date.now(),name:'New opportunity',bucket:'Custom',value:200000,alloc:evenMonths(200000),custom:true});}
+  else{const i=+v.slice(1);const d=pipelinePool[i];projItems.push({id:v,name:d.o,bucket:d.b,value:d.r||0,alloc:defaultMonths(d),stage:d.s});}
+  refreshSelect();renderProjList();renderProj();
+});
+function updateCardDerived(card,p){
+  const tv=+p.value||0;
+  card.querySelectorAll('.am').forEach(am=>{const m=+am.querySelector('input').dataset.m;am.querySelector('.amt').textContent=pctOf(p.alloc[m],tv)+'%';});
+  const sum=ALLOC_MONTHS.reduce((s,m)=>s+(+p.alloc[m]||0),0),ok=Math.abs(sum-tv)<1;
+  const sm=card.querySelector('.pc-sum');sm.className='pc-sum '+(ok?'ok':'bad');sm.textContent='allocated '+fmt(sum)+' of '+fmt(tv)+(ok?' \u2713':' \u00b7 '+fmt(Math.abs(sum-tv))+' '+(sum>tv?'over':'not yet scheduled'));
+}
+function renderProjList(){
+  const box=document.getElementById('projList');box.innerHTML='';
+  if(!projItems.length){box.innerHTML='<div class="proj-empty">No opportunities added yet. Choose one from the dropdown above — grouped by pipeline stage — (or add a custom opportunity), then set its total value and the dollars accruing each month Aug\u2013Dec.</div>';return;}
+  projItems.forEach(p=>{
+    const card=document.createElement('div');card.className='pcard';
+    const tv=+p.value||0,sum=ALLOC_MONTHS.reduce((s,m)=>s+(+p.alloc[m]||0),0),ok=Math.abs(sum-tv)<1;
+    let allocH='';ALLOC_MONTHS.forEach(m=>{const dollars=+p.alloc[m]||0;allocH+='<div class="am"><label>'+MON[m]+'</label><input type="number" min="0" step="1000" data-m="'+m+'" value="'+dollars+'"><span class="amt">'+pctOf(dollars,tv)+'%</span></div>';});
+    card.innerHTML='<div class="pc-top"><div class="pc-name">'+(p.custom?'<input type="text" data-f="name" value="'+esc(p.name)+'" style="width:100%;font-family:Arial;font-size:12.5px;padding:4px 6px;border:1px solid var(--line)">':esc(p.name)+'<small>'+esc(short(p.bucket))+(p.stage?' \u00b7 '+p.stage:'')+'</small>')+'</div><button class="pc-rm" title="remove">\u00d7</button></div>'+
+      '<div class="pc-val"><label>Total value</label><input type="number" step="5000" data-f="value" value="'+tv+'"></div>'+
+      '<div class="alloc">'+allocH+'</div>'+
+      '<div class="pc-sum '+(ok?'ok':'bad')+'">allocated '+fmt(sum)+' of '+fmt(tv)+(ok?' \u2713':' \u2014 '+(sum>tv?'over':'under')+' by '+fmt(Math.abs(sum-tv)))+'</div>';
+    card.querySelector('.pc-rm').addEventListener('click',()=>{projItems=projItems.filter(x=>x!==p);refreshSelect();renderProjList();renderProj();});
+    const val=card.querySelector('[data-f=value]');val.addEventListener('input',()=>{p.value=+val.value||0;updateCardDerived(card,p);renderProj();});
+    const nm=card.querySelector('[data-f=name]');if(nm)nm.addEventListener('input',()=>{p.name=nm.value;renderProj();});
+    card.querySelectorAll('[data-m]').forEach(inp=>inp.addEventListener('input',()=>{p.alloc[+inp.dataset.m]=+inp.value||0;updateCardDerived(card,p);renderProj();}));
+    box.appendChild(card);
+  });
+}
+function projMonthly(p){const a=Array(12).fill(0);ALLOC_MONTHS.forEach(m=>a[m]=+p.alloc[m]||0);return a;}
+function renderProj(){
+  const proj=Array(12).fill(0);const perMonthItems=Array.from({length:12},()=>[]);
+  projItems.forEach(p=>{const pm=projMonthly(p);pm.forEach((v,i)=>{proj[i]+=v;if(v>0)perMonthItems[i].push([p.name,v]);});});
+  const series=[{name:'Booked',color:'var(--corp)',data:baseMonthly},{name:'Projected',color:'var(--over)',data:proj}];
+  stackedBars(document.getElementById('projChart'),document.getElementById('projTip'),series,TGT,i=>{
+    const rows=[['Booked',baseMonthly[i]]].concat(perMonthItems[i]);const tot=baseMonthly[i]+proj[i];if(tot<=0)return '';
+    let h='<div class="tt"><span>'+MON[i]+'</span><span>'+fmt(tot)+'</span></div>';
+    h+='<div class="tr"><span>Booked</span><span>'+fmt(baseMonthly[i])+'</span></div>';
+    perMonthItems[i].sort((a,b)=>b[1]-a[1]).slice(0,6).forEach(r=>h+='<div class="tr"><span>'+esc(r[0])+'</span><span>'+fmt(r[1])+'</span></div>');return h;});
+  document.getElementById('projLegend').innerHTML='<span class="k"><span class="sw" style="background:var(--corp)"></span> Booked (locked)</span><span class="k"><span class="sw" style="background:var(--over)"></span> Projected</span><span class="k"><span class="swl"></span> monthly target</span>';
+  const bkFull=baseMonthly.reduce((a,b)=>a+b,0),bkRest=baseMonthly.slice(7).reduce((a,b)=>a+b,0);
+  // Totals follow the value entered for each opportunity, whether or not it has been
+  // placed into months. The chart can only draw scheduled dollars, so anything
+  // unscheduled is carried in the totals and called out beneath the chart.
+  const projAlloc=proj.reduce((a,b)=>a+b,0);
+  const projTotal=projItems.reduce((s,p)=>s+(+p.value||0),0);
+  const unalloc=projTotal-projAlloc;
+  const projFull=bkFull+projTotal;const gap=projFull-TL.plan;
+  const noteEl=document.getElementById('projNote');
+  if(Math.abs(unalloc)<1){noteEl.textContent=projItems.length?'All projected value is scheduled by month, so the bars and the totals below agree.':'';}
+  else if(unalloc>0){noteEl.innerHTML='<b>'+fmt(unalloc)+'</b> of projected value is not yet placed in a month. It is included in the totals and tiles above, but cannot be drawn on the chart \u2014 spread it across the months on each card to see it in the bars.';}
+  else{noteEl.innerHTML='Months are over-allocated by <b>'+fmt(-unalloc)+'</b> against the totals entered. The tiles and table below follow the entered totals; the bars follow the monthly figures.';}
+  document.getElementById('projTiles').innerHTML=
+    '<div class="tile"><div class="lab">Booked (full year)</div><div class="fig">'+fmtM(bkFull)+'</div><div class="sub">'+Math.round(bkFull/TL.plan*100)+'% of plan</div></div>'+
+    '<div class="tile"><div class="lab">Projected added</div><div class="fig">'+fmtM(projTotal)+'</div><div class="sub">'+projItems.length+' opportunit'+(projItems.length===1?'y':'ies')+(Math.abs(unalloc)>=1?' \u00b7 '+fmtM(Math.abs(unalloc))+(unalloc>0?' unscheduled':' over'):'')+'</div></div>'+
+    '<div class="tile"><div class="lab">Projected year-end</div><div class="fig">'+fmtM(projFull)+'</div><div class="sub">'+Math.round(projFull/TL.plan*100)+'% of plan</div></div>'+
+    '<div class="tile"><div class="lab">Gap to $13M plan</div><div class="fig">'+(gap>=0?'+':'')+fmtM(gap)+'</div><div class="sub"><span class="'+(gap>=0?'pct':'neg')+'">'+(gap>=0?'surplus':'shortfall')+'</span></div></div>';
+  document.getElementById('projRows').innerHTML=
+    '<tr><td>Booked \u00b7 closed &amp; MI</td><td class="num">'+fmt(bkRest)+'</td><td class="num">'+fmt(bkFull)+'</td></tr>'+
+    '<tr><td>Projected opportunities</td><td class="num">'+fmt(projTotal)+'</td><td class="num">'+fmt(projTotal)+'</td></tr>'+
+    (Math.abs(unalloc)>=1?'<tr><td style="color:var(--muted);padding-left:18px">'+(unalloc>0?'of which not yet scheduled by month':'months over-allocated by')+'</td><td class="num" style="color:var(--muted)">'+fmt(Math.abs(unalloc))+'</td><td class="num" style="color:var(--muted)">'+fmt(Math.abs(unalloc))+'</td></tr>':'')+
+    '<tr class="total"><td>Projected total</td><td class="num">'+fmt(bkRest+projTotal)+'</td><td class="num">'+fmt(projFull)+'</td></tr>'+
+    '<tr><td style="border:0;color:var(--muted)">Gap / surplus to $13.0M plan</td><td class="num" style="border:0"></td><td class="num '+(gap>=0?'pos':'neg')+'" style="border:0">'+(gap>=0?'+':'')+fmt(gap)+'</td></tr>';
+}
+
+/* ================= INIT ================= */
+
+/* ================= SAVE AS (versioned copy) ================= */
+/* Writes the report back out as a standalone HTML file with whatever has been
+   typed into the assessments and built in the Projections Tool baked in, so a
+   dated version can be filed or circulated. */
+let SAVED_NAME='',SAVED_AT='',PRELOAD_PROJ=null;
+(function restoreState(){
+  const el=document.getElementById('saved-state');if(!el)return;
+  try{
+    const st=JSON.parse(el.textContent);
+    if(st.assess)Object.keys(st.assess).forEach(k=>{if(assessDefault[k])assessDefault[k]=st.assess[k];});
+    if(st.proj&&st.proj.length)PRELOAD_PROJ=st.proj;
+    if(st.syn)Object.keys(st.syn).forEach(k=>{synEdits[k]=st.syn[k];});
+    SAVED_NAME=st.v||'';SAVED_AT=st.saved||'';
+  }catch(e){console.warn('Could not read saved state',e);}
+})();
+function savedStamp(){
+  if(!SAVED_NAME)return '';
+  let when='';
+  try{when=new Date(SAVED_AT).toLocaleString('en-US',{month:'short',day:'numeric',year:'numeric',hour:'numeric',minute:'2-digit'});}catch(e){}
+  return SAVED_NAME+(when?' \u00b7 saved '+when:'');
+}
+function paintVersion(){const p=document.getElementById('verPill');if(p)p.textContent=savedStamp();}
+function saveAsVersion(){
+  const dflt=SAVED_NAME||('BD Report \u2014 '+new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}));
+  const name=window.prompt('Name this version',dflt);
+  if(name===null)return;
+  SAVED_NAME=(name||'').trim()||'Untitled version';
+  SAVED_AT=new Date().toISOString();
+  const state={v:SAVED_NAME,saved:SAVED_AT,
+    assess:JSON.parse(JSON.stringify(assessDefault)),
+    syn:JSON.parse(JSON.stringify(synEdits)),
+    proj:projItems.map(p=>({id:p.id,name:p.name,bucket:p.bucket,value:p.value,alloc:p.alloc,stage:p.stage,custom:!!p.custom}))};
+  paintVersion();
+  const clone=document.documentElement.cloneNode(true);
+  const prior=clone.querySelector('#saved-state');if(prior)prior.remove();
+  const sc=document.createElement('script');
+  sc.id='saved-state';sc.type='application/json';
+  sc.textContent=JSON.stringify(state).replace(/</g,'\\u003c');
+  clone.querySelector('head').appendChild(sc);
+  const blob=new Blob(['<!doctype html>\n'+clone.outerHTML],{type:'text/html;charset=utf-8'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;
+  a.download=(SAVED_NAME.replace(/[^A-Za-z0-9 _-]+/g,'').trim().replace(/\s+/g,'-')||'bd-report')+'.html';
+  document.body.appendChild(a);a.click();a.remove();
+  setTimeout(()=>URL.revokeObjectURL(url),2000);
+}
+document.getElementById('saveBtn').addEventListener('click',saveAsVersion);
+
+if(PRELOAD_PROJ)projItems=PRELOAD_PROJ;
+paintVersion();
+renderAtt();renderMovement();renderAccruals();renderQ3Waterfall();renderReport();renderTable();refreshSelect();renderProjList();renderProj();
+})();
+</script>
+</body></html>
